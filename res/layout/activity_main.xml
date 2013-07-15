@@ -5,19 +5,19 @@
 	
 	<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
 		 <Button
-        android:id="@+id/button1"
+        android:id="@+id/botaoTocar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="  Tocar  \n" />
 		 
 		  <Button
-        android:id="@+id/button2"
+        android:id="@+id/botaoEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="  Editar  \nTags" />
 		  
 		 <Button
-        android:id="@+id/button3"
+        android:id="@+id/botaoCarregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="  Carregar  \nMusicas" />
