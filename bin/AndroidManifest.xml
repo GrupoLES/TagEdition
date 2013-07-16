@@ -26,6 +26,14 @@
             android:name="br.com.activity.SetValueTag"
             android:label="@string/title_activity_set_value_tag" >
         </activity>
+        <activity
+            android:name="br.com.player.PlayerActivity"
+            android:label="@string/title_activity_player" >
+        </activity>
+        <activity
+            android:name="br.com.player.PlayerActivity"
+            android:label="@string/title_activity_player" >
+        </activity>
     </application>
 
 </manifest>
