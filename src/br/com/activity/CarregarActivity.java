@@ -61,6 +61,7 @@ public class CarregarActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 	        	ListMusic.getInstance().addMusica(files[position]);
+	        	MainActivity.fileAdapter.notifyDataSetChanged();
 	            }
 	        });
 	}
