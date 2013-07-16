@@ -9,8 +9,89 @@
     tools:context=".SetValueTag" >
 
     <TextView
+        android:id="@+id/textViewAutor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:text="Autor: " />
+
+    <Button
+        android:id="@+id/botaoLimpar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewAutor"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"
+        android:text="Limpar" />
+
+    <Button
+        android:id="@+id/botaoCancelar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/botaoSalvar"
+        android:layout_alignBottom="@+id/botaoSalvar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="23dp"
+        android:text="Cancelar" />
+
+    <Button
+        android:id="@+id/botaoSalvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/botaoLimpar"
+        android:layout_alignBottom="@+id/botaoLimpar"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/botaoLimpar"
+        android:text="Salvar" />
+
+    <EditText
+        android:id="@+id/editTextAutor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewAutor"
+        android:layout_alignBottom="@+id/textViewAutor"
+        android:layout_alignLeft="@+id/botaoSalvar"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textViewAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewAutor"
+        android:layout_below="@+id/editTextAutor"
+        android:layout_marginTop="42dp"
+        android:text="Album: " />
+
+    <EditText
+        android:id="@+id/editTextAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewAlbum"
+        android:layout_alignBottom="@+id/textViewAlbum"
+        android:layout_alignLeft="@+id/editTextAutor"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/editTextGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextAlbum"
+        android:layout_below="@+id/editTextAlbum"
+        android:layout_marginTop="23dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textViewGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextGenero"
+        android:layout_alignBottom="@+id/editTextGenero"
+        android:layout_alignLeft="@+id/textViewAlbum"
+        android:text="Genero: " />
 
 </RelativeLayout>
