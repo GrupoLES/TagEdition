@@ -1,15 +1,16 @@
 package br.com.logica;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListMusic {
 	
 	private static ListMusic instancia = null;
-	private List<String> list;
+	private List<File> list;
 	
 	private ListMusic(){
-		list = new ArrayList<String>();
+		list = new ArrayList<File>();
 	}
 	
 	public static ListMusic getInstance(){
@@ -19,11 +20,11 @@ public class ListMusic {
 		return instancia;
 	}
 	
-	public void addMusica(String caminho){
-		list.add(caminho);
+	public void addMusica(File file){
+		list.add(file);
 	}
 	
-	public List<String> getListMusic(){
+	public List<File> getListMusic(){
 		return list;
 	}
 }

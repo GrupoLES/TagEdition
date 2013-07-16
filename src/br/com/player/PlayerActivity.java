@@ -1,18 +1,18 @@
 
 package br.com.player;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.logica.ListMusic;
-
-import com.example.tagedition.R;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import br.com.logica.ListMusic;
+
+import com.example.tagedition.R;
  
 public class PlayerActivity extends Activity {
 	
@@ -22,7 +22,17 @@ private boolean Click;
 private int musicIndex = 0;
 private boolean stopped = false;
 private List<String> musicas;
- 
+
+private List<String> convertPath(){
+	List<String> retorno = new ArrayList<String>();
+	List<File> files = ListMusic.getInstance().getListMusic();
+	
+	for (int i = 0; i < files.size(); i++) {
+		retorno.add(files.get(i).getPath());
+	}
+	return retorno;
+}
+
 @Override
 public void onCreate(Bundle savedInstanceState) {
 super.onCreate(savedInstanceState);
@@ -36,7 +46,7 @@ btNext = (Button) findViewById(R.id.botaoNext);
 
 //Player = MediaPlayer.create(this, R.raw.music);
 Player = new MediaPlayer();
-musicas = ListMusic.getInstance().getListMusic();
+musicas = convertPath();
 //musicas.add("/sdcard/09 Blaze of Glory.mp3");
 //musicas.add("/sdcard/01 Under the bridge.mp3");
 

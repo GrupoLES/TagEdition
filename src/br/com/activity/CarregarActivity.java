@@ -2,6 +2,7 @@ package br.com.activity;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import br.com.logica.FileAdapter;
 import br.com.logica.ListMusic;
 
 import com.example.tagedition.R;
@@ -22,11 +24,11 @@ public class CarregarActivity extends Activity {
 	
 	private File sdcard;
 	
-	private List<String> listName(File[] files){
-		List<String> retorno = new ArrayList<String>();
+	private List<File> listArray(File[] files){
+		List<File> retorno = new ArrayList<File>();
 		
 		for (int i = 0; i < files.length; i++) {
-			retorno.add(files[i].getName());
+			retorno.add(files[i]);
 		}
 		
 		return retorno;
@@ -51,14 +53,14 @@ public class CarregarActivity extends Activity {
 		});
 		
 		final ListView listView = (ListView) findViewById(R.id.files);
-		List<String> list = listName(files);
-		ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-		listView.setAdapter(listAdapter);
+		List<File> list = listArray(files);
+		FileAdapter adapter = new FileAdapter(getApplicationContext(), list);
+		//ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+		listView.setAdapter(adapter);
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-	        	ListMusic.getInstance().addMusica(files[position].getPath());
-	        	finish();
+	        	ListMusic.getInstance().addMusica(files[position]);
 	            }
 	        });
 	}
