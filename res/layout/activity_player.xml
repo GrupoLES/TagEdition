@@ -1,30 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".PlayerActivity" >
-
-    <Button
-        android:id="@+id/bttocar"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="wrap_content"
+	android:layout_height="fill_parent">
+	
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		
+        
+        <Button
+        android:id="@+id/botaoPrevious"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="42dp"
-        android:text="Tocar" />
-
-    <Button
-        android:id="@+id/btpausar"
+        android:text="Previous" />
+        
+        <Button
+        android:id="@+id/botaoPause"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bttocar"
-        android:layout_marginLeft="37dp"
-        android:layout_toRightOf="@+id/bttocar"
-        android:text="Pausar" />
+        android:text="Pause" />
+        
+        <Button
+        android:id="@+id/botaoPlay"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play" />
+        
+        
+        
+        <Button
+        android:id="@+id/botaoStop"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop" />
+        
+        <Button
+        android:id="@+id/botaoNext"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next" />
+        
+        
+	
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -1,5 +1,7 @@
 package br.com.activity;
 
+import br.com.player.PlayerActivity;
+
 import com.example.tagedition.R;
 
 import android.os.Bundle;
@@ -28,6 +30,7 @@ public class MainActivity extends Activity {
 	private void create(){
 		Button botaoEditarTag = (Button) findViewById(R.id.botaoEditar);
 		Button botaoCarregar = (Button) findViewById(R.id.botaoCarregar);
+		Button botaoTocar = (Button) findViewById(R.id.botaoTocar);
 		
 		botaoEditarTag.setOnClickListener(new View.OnClickListener() {
 			
@@ -46,6 +49,17 @@ public class MainActivity extends Activity {
 				Intent i = new Intent(MainActivity.this,CarregarActivity.class);
 				startActivity(i);
 			}
+		});
+		
+		botaoTocar.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(MainActivity.this,PlayerActivity.class);
+				startActivity(i);
+				
+			}
+			
 		});
 	}
 
