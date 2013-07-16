@@ -1,10 +1,18 @@
 package br.com.activity;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.cmc.music.common.ID3WriteException;
+import org.cmc.music.metadata.IMusicMetadata;
+import org.cmc.music.metadata.MusicMetadata;
+import org.cmc.music.metadata.MusicMetadataSet;
+import org.cmc.music.myid3.MyID3;
+
+import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
 
 import com.example.tagedition.R;
-import com.example.tagedition.R.layout;
-import com.example.tagedition.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -28,7 +36,9 @@ public class SetValueTag extends Activity {
 		getMenuInflater().inflate(R.menu.set_value_tag, menu);
 		return true;
 	}
-
+	
+	ListMusic listMusic = ListMusic.getInstance();
+	
 	Button botaoLimpar;
 	Button botaoCancelar;
 	Button botaoSalvar;
@@ -60,12 +70,45 @@ public class SetValueTag extends Activity {
 		});
 
 		botaoSalvar.setOnClickListener(new View.OnClickListener() {
-
+			
 			@Override
 			public void onClick(View v) {
-				singletonTag.editTag(editTextAutor.getText().toString(),
-						editTextAlbum.getText().toString(), editTextGenero
-								.getText().toString());
+				for (int i = 0; i < listMusic.getListMusic().size(); i++) {
+					File file = listMusic.getListMusic().get(i);
+					MusicMetadataSet music = null;
+					
+					try {
+						music = new MyID3().read(file);
+						IMusicMetadata musicMetaData = music.getSimplified();
+						
+						MusicMetadata musicaMeta = new MusicMetadata("");
+						if(!("".equals(editTextAlbum.getText().toString()))){
+							musicaMeta.setAlbum(editTextAlbum.getText().toString());
+						}else{
+							musicaMeta.setAlbum(musicMetaData.getAlbum());
+						}
+						if(!("".equals(editTextAutor.getText().toString()))){
+							musicaMeta.setArtist(editTextAutor.getText().toString());
+						}else{
+							musicaMeta.setArtist(musicMetaData.getArtist());
+						}
+						if(!("".equals(editTextGenero.getText().toString()))){
+							musicaMeta.setArtist(editTextGenero.getText().toString());
+						}else{
+							musicaMeta.setGenre(musicMetaData.getGenre());
+						}
+						
+						try {
+							new MyID3().write(file, file, music, musicaMeta);
+						} catch (ID3WriteException e) {
+							System.out.println("Erro ao escrever a musica: "+file);
+						}
+						
+					} catch (IOException e) {
+						System.out.println("Erro ao ler:"+file);
+					}
+					
+				}
 
 			}
 		});
