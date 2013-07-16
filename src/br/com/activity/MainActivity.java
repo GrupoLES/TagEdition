@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 	
 	private void create(){
 		Button botaoEditarTag = (Button) findViewById(R.id.botaoEditar);
+		Button botaoCarregar = (Button) findViewById(R.id.botaoCarregar);
 		
 		botaoEditarTag.setOnClickListener(new View.OnClickListener() {
 			
@@ -35,6 +36,15 @@ public class MainActivity extends Activity {
 				Intent i = new Intent(MainActivity.this,SetValueTag.class);
 				startActivity(i);
 					
+			}
+		});
+		
+		botaoCarregar.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this,CarregarActivity.class);
+				startActivity(i);
 			}
 		});
 	}
