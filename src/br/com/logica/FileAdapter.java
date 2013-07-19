@@ -41,8 +41,17 @@ public class FileAdapter extends BaseAdapter{
 	@Override
 	public View getView(int posicao, View view, ViewGroup arg2) {
 		view = mInflater.inflate(R.layout.item_list, null); 
-		TextView textView = (TextView)view.findViewById(R.id.textView1);
-		textView.setText(files.get(posicao).getName());
+		
+		TextView tipo = (TextView)view.findViewById(R.id.tipoArquivo);
+		if (this.files.get(posicao).isDirectory()){
+			tipo.setText("diretorio");
+		}else{
+			tipo.setText("musica");
+		}
+		
+		
+		TextView nome = (TextView)view.findViewById(R.id.nomeArquivo);
+		nome.setText(files.get(posicao).getName());
 		
 		return view;
 	}

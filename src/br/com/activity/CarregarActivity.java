@@ -23,15 +23,24 @@ import com.example.tagedition.R;
 public class CarregarActivity extends Activity {
 	
 	private File sdcard;
+	private List<File> list;
+	private ListView listView;
+	private FileAdapter adapter;
 	
-	private List<File> listArray(File[] files){
-		List<File> retorno = new ArrayList<File>();
-		
-		for (int i = 0; i < files.length; i++) {
-			retorno.add(files[i]);
+	private void updateList(File[] files){	
+		if (list == null){
+			list = new ArrayList<File>();
+		}else{
+			list.removeAll(list);
 		}
 		
-		return retorno;
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isDirectory()) {
+				list.add(0, files[i]);
+			}else{
+				list.add(files[i]);
+			}	
+		}
 	}
 	
 	@Override
@@ -42,9 +51,12 @@ public class CarregarActivity extends Activity {
 		sdcard = Environment.getExternalStorageDirectory();
 		
 		final File[] files = sdcard.listFiles(new FilenameFilter() {
-			
 			@Override
 			public boolean accept(File dir, String filename) {
+				if (dir.isDirectory()){
+					return true;
+				}
+				
 				if (filename.toLowerCase().endsWith(".mp3")){
 					return true;
 				}
@@ -52,18 +64,38 @@ public class CarregarActivity extends Activity {
 			}
 		});
 		
-		final ListView listView = (ListView) findViewById(R.id.files);
-		List<File> list = listArray(files);
-		FileAdapter adapter = new FileAdapter(getApplicationContext(), list);
+		listView = (ListView) findViewById(R.id.files);
+		updateList(files);
+		adapter = new FileAdapter(getApplicationContext(), list);
 		//ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 		listView.setAdapter(adapter);
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-	        	ListMusic.getInstance().addMusica(files[position]);
-	        	MainActivity.fileAdapter.notifyDataSetChanged();
-	            }
-	        });
+	        	if (list.get(position).isDirectory()){
+	        		File[] filesAux = list.get(position).listFiles(new FilenameFilter() {
+	        			@Override
+	        			public boolean accept(File dir, String filename) {
+	        				if (dir.isDirectory()){
+	        					return true;
+	        				}
+	        				
+	        				if (filename.toLowerCase().endsWith(".mp3")){
+	        					return true;
+	        				}
+	        				return false;
+	        			}
+	        		});
+	        		File auxParent = list.get(position).getParentFile();
+	        		updateList(filesAux);
+	        		list.add(0, auxParent);
+	        		adapter.notifyDataSetChanged();
+	        	}else{
+	        		ListMusic.getInstance().addMusica(list.get(position));
+		        	MainActivity.fileAdapter.notifyDataSetChanged();
+	        	}
+	        }
+	    });
 	}
 
 	@Override
