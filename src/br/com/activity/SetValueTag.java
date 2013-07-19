@@ -16,6 +16,8 @@ import com.example.tagedition.R;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +72,10 @@ public class SetValueTag extends Activity {
 		});
 
 		botaoSalvar.setOnClickListener(new View.OnClickListener() {
+			boolean alteracao = true;
+			String autor = editTextAutor.getText().toString();
+			String album = editTextAlbum.getText().toString();
+			String genero = editTextGenero.getText().toString();
 			
 			@Override
 			public void onClick(View v) {
@@ -102,12 +108,30 @@ public class SetValueTag extends Activity {
 							new MyID3().write(file, file, music, musicaMeta);
 						} catch (ID3WriteException e) {
 							System.out.println("Erro ao escrever a musica: "+file);
+							alteracao = false;
 						}
 						
 					} catch (IOException e) {
 						System.out.println("Erro ao ler:"+file);
+						alteracao = false;
 					}
 					
+				}
+				if(alteracao){
+					
+					autor = editTextAutor.getText().toString();
+					album = editTextAlbum.getText().toString();
+					genero = editTextGenero.getText().toString();
+					
+					AlertDialog.Builder alert = new AlertDialog.Builder(SetValueTag.this);
+					alert.setTitle("Confirmação");
+					alert.setMessage("Autor:"+autor+"\nAlbum: "+album+"\nGenero: "+genero+ "\nforam alteradas com sucesso!");
+					alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
+						public  void  onClick(DialogInterface dialog, int  whichButton) { 
+							finish();
+						}
+					});
+					alert.show();
 				}
 
 			}
