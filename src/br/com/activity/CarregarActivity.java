@@ -91,8 +91,10 @@ public class CarregarActivity extends Activity {
 	        		list.add(0, auxParent);
 	        		adapter.notifyDataSetChanged();
 	        	}else{
-	        		ListMusic.getInstance().addMusica(list.get(position));
-		        	MainActivity.fileAdapter.notifyDataSetChanged();
+	        		if (!(ListMusic.getInstance().getListMusic().contains(list.get(position)))){
+	        			ListMusic.getInstance().addMusica(list.get(position));
+			        	MainActivity.fileAdapter.notifyDataSetChanged();
+	        		}
 	        	}
 	        }
 	    });
