@@ -64,6 +64,7 @@ public class PlayerActivity extends Activity {
 				
 				if(musicas.size() >  PlayerController.musicIndex + 1){
 					PlayerController.musicIndex++;
+					PlayerController.Player.release();
 					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 					try {
 						PlayerController.Player.prepare();
@@ -88,7 +89,8 @@ public class PlayerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player);
-		 
+		
+		
 		btPlay = (Button) findViewById(R.id.botaoPlay);
 		btPausar = (Button) findViewById(R.id.botaoPause);
 		btStop = (Button) findViewById(R.id.botaoStop);
@@ -120,6 +122,7 @@ public class PlayerActivity extends Activity {
 				
 				PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 				stopped = false;
+				paused = false;
 				
 			}
 				
@@ -157,8 +160,13 @@ public class PlayerActivity extends Activity {
 		
 			@Override
 			public void onClick(View arg0) {
-				stopped = true;
-				PlayerController.Player.stop();
+				
+				
+				if(!stopped){
+					PlayerController.Player.stop();
+					PlayerController.Player.release();
+					stopped = true;
+				}
 				
 			}
 			
@@ -171,7 +179,12 @@ public class PlayerActivity extends Activity {
 				
 				if(musicas.size() > 0){
 					
-					PlayerController.Player.stop();
+					if(stopped == false || paused ==  true){
+						PlayerController.Player.stop();
+						PlayerController.Player.release();
+					}
+					
+					
 					if(PlayerController.musicIndex == 0) {
 						PlayerController.musicIndex = musicas.size() - 1;
 					}else{
@@ -180,7 +193,7 @@ public class PlayerActivity extends Activity {
 					
 					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 					stopped = false;
-					
+					paused = false;
 					try {
 						PlayerController.Player.prepare();
 					}catch (Exception e) {
@@ -201,7 +214,10 @@ public class PlayerActivity extends Activity {
 				
 				if(musicas.size() > 0){
 					
-					PlayerController.Player.stop();
+					if(stopped == false || paused == true){
+						PlayerController.Player.stop();
+						PlayerController.Player.release();
+					}
 					if(PlayerController.musicIndex == musicas.size() - 1) {
 						PlayerController.musicIndex = 0;
 					}else{
@@ -210,7 +226,7 @@ public class PlayerActivity extends Activity {
 					
 					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 					stopped = false;
-					
+					paused = false;
 					try {
 						PlayerController.Player.prepare();
 					}catch (Exception e) {
@@ -232,13 +248,19 @@ public class PlayerActivity extends Activity {
 		 
 		@Override
 		public void onClick(View arg0) {
-			paused = true;
+			
+			
+			if(paused == false && stopped == false){
+				PlayerController.Player.pause();
+				paused = true;
+			}
+			
 		 
-			PlayerController.Player.pause();
-		 
-				}
-			});
+		}
+	});
 	 
+			
+	
 	}
 
  
