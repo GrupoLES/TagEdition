@@ -11,6 +11,8 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.TextView;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
 
@@ -24,6 +26,7 @@ public class PlayerActivity extends Activity {
 //	private int musicIndex = 0;
 	private boolean stopped = false;
 	private boolean paused = false;
+	private TextView nameField;
 	private List<String> musicas;
 	
 	private List<String> convertPath(){
@@ -57,6 +60,7 @@ public class PlayerActivity extends Activity {
 	}
 	
 	private void buildListener() {
+		
 		PlayerController.Player.setOnCompletionListener(new OnCompletionListener(){
 
 			@Override
@@ -76,6 +80,7 @@ public class PlayerActivity extends Activity {
 						e.printStackTrace();
 					}
 					PlayerController.Player.start();
+					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
 					buildListener();
 				}
 				
@@ -85,26 +90,58 @@ public class PlayerActivity extends Activity {
 		
 	}
 	
+	private String getFileNameFromPath(String path){
+		String[] array = path.split("/");
+		return array[array.length - 1];
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player);
-		
 		
 		btPlay = (Button) findViewById(R.id.botaoPlay);
 		btPausar = (Button) findViewById(R.id.botaoPause);
 		btStop = (Button) findViewById(R.id.botaoStop);
 		btPrevious = (Button) findViewById(R.id.botaoPrevious);
 		btNext = (Button) findViewById(R.id.botaoNext);
+		nameField = (TextView) findViewById(R.id.textNomeMusica);
+		
+		
 		
 		//Player = MediaPlayer.create(this, R.raw.music);
 		musicas = convertPath();
+		System.out.println("MUSICAA: " + musicas.size() );
 		//musicas.add("/sdcard/09 Blaze of Glory.mp3");
 		//musicas.add("/sdcard/01 Under the bridge.mp3");
 		
 		
-		if(musicas.size() > 0 && PlayerController.Player == null){
+		
+		if(PlayerController.Player != null){
+			nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
+			
+			try {
+				if(! PlayerController.Player.isPlaying()){
+					PlayerController.Player = new MediaPlayer();
+					
+				}
+			} catch (Exception e) {
+				PlayerController.Player = new MediaPlayer();
+			}
+			
+			
+			
+			
+		}else{
+			PlayerController.Player = new MediaPlayer();
+		}
+		
+		
+		
+		
+		if(musicas.size() > 0 && !PlayerController.Player.isPlaying()){
 			PlayerController.Player = returnPlayer(PlayerController.musicIndex);
+			
 		}
 			
 		
@@ -134,7 +171,7 @@ public class PlayerActivity extends Activity {
 				}	
 				
 				PlayerController.Player.start();
-				
+				nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
 //				if(paused == false){
 //					buildThread();
 //				}
@@ -200,6 +237,7 @@ public class PlayerActivity extends Activity {
 					}
 					
 					PlayerController.Player.start();
+					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
 					buildListener();
 				}
 		
@@ -233,6 +271,7 @@ public class PlayerActivity extends Activity {
 					}
 					
 					PlayerController.Player.start();
+					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
 					buildListener();
 					
 				}

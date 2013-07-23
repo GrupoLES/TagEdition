@@ -48,4 +48,18 @@
 	
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Musica Tocando: "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textNomeMusica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </LinearLayout>
