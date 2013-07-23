@@ -8,6 +8,8 @@ import org.cmc.music.metadata.IMusicMetadata;
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
+import org.farng.mp3.MP3File;
+import org.farng.mp3.TagConstant;
 
 import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
@@ -72,51 +74,48 @@ public class SetValueTag extends Activity {
 		});
 
 		botaoSalvar.setOnClickListener(new View.OnClickListener() {
-			boolean alteracao = true;
+			boolean alteracao = false;
 			String autor = editTextAutor.getText().toString();
 			String album = editTextAlbum.getText().toString();
 			String genero = editTextGenero.getText().toString();
 			
+			
 			@Override
 			public void onClick(View v) {
+				MP3File mp3 = null;
+				File file = null;
 				for (int i = 0; i < listMusic.getListMusic().size(); i++) {
-					File file = listMusic.getListMusic().get(i);
-					MusicMetadataSet music = null;
-					
-					try {
-						music = new MyID3().read(file);
-						IMusicMetadata musicMetaData = music.getSimplified();
-						
-						MusicMetadata musicaMeta = new MusicMetadata("");
-						if(!("".equals(editTextAlbum.getText().toString()))){
-							musicaMeta.setAlbum(editTextAlbum.getText().toString());
-						}else{
-							musicaMeta.setAlbum(musicMetaData.getAlbum());
-						}
-						if(!("".equals(editTextAutor.getText().toString()))){
-							musicaMeta.setArtist(editTextAutor.getText().toString());
-						}else{
-							musicaMeta.setArtist(musicMetaData.getArtist());
-						}
-						if(!("".equals(editTextGenero.getText().toString()))){
-							musicaMeta.setArtist(editTextGenero.getText().toString());
-						}else{
-							musicaMeta.setGenre(musicMetaData.getGenre());
-						}
-						
+					file = listMusic.getListMusic().get(i);
+					if(file.toString().contains(".mp3")){
 						try {
-							new MyID3().write(file, file, music, musicaMeta);
-						} catch (ID3WriteException e) {
+							
+							mp3 = new MP3File(file);
+							
+							if(!(editTextAlbum.getText().toString().trim().equals(""))){
+								mp3.getID3v2Tag().setAlbumTitle(editTextAlbum.getText().toString());
+								alteracao = true;
+							}
+							if(!(editTextAutor.getText().toString().trim().equals(""))){
+								mp3.getID3v2Tag().setAuthorComposer(editTextAutor.getText().toString());
+								alteracao = true;
+							}
+							if(!(editTextGenero.getText().toString().trim().equals(""))){
+								mp3.getID3v2Tag().setSongGenre(editTextGenero.getText().toString());
+								alteracao = true;
+							}
+							
+						} catch (Exception e) {
+							System.out.println("Erro ao carregar: "+file.toString());
+						}
+						try {
+							mp3.save(file, TagConstant.MP3_FILE_SAVE_OVERWRITE);
+							file = new File(file.toString().replace(".mp3", ".original.mp3"));
+							file.deleteOnExit();
+						} catch (Exception e) {
 							System.out.println("Erro ao escrever a musica: "+file);
 							alteracao = false;
 						}
-						
-					} catch (IOException e) {
-						System.out.println("Erro ao ler:"+file);
-						alteracao = false;
 					}
-					
-				}
 				if(alteracao){
 					
 					autor = editTextAutor.getText().toString();
@@ -133,10 +132,9 @@ public class SetValueTag extends Activity {
 					});
 					alert.show();
 				}
-
+				}
 			}
-		});
-		
+		});		
 		botaoCancelar.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
