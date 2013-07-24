@@ -94,4 +94,23 @@
         android:layout_alignLeft="@+id/textViewAlbum"
         android:text="Genero: " />
 
+    <TextView
+        android:id="@+id/capa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewGenero"
+        android:layout_below="@+id/editTextGenero"
+        android:layout_marginTop="42dp"
+        android:text="Escolha capa:" />
+
+    <Button
+        android:id="@+id/botaoCapa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/capa"
+        android:layout_alignBottom="@+id/capa"
+        android:layout_alignLeft="@+id/editTextGenero"
+        android:layout_marginLeft="46dp"
+        android:text="Escolher imagem" />
+
 </RelativeLayout>

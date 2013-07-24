@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +35,10 @@
         <activity
             android:name="br.com.activity.CarregarActivity"
             android:label="@string/title_activity_carregar" >
+        </activity>
+        <activity
+            android:name="br.com.activity.FotosActivity"
+            android:label="@string/title_activity_fotos" >
         </activity>
     </application>
 

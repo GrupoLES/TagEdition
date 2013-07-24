@@ -7,5 +7,6 @@
     <string name="title_activity_set_value_tag">SetValueTag</string>
     <string name="title_activity_player">PlayerActivity</string>
     <string name="title_activity_carregar">CarregarActivity</string>
+    <string name="title_activity_fotos">FotosActivity</string>
 
 </resources>

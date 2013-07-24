@@ -13,6 +13,7 @@ import org.farng.mp3.TagConstant;
 
 import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
+import br.com.player.PlayerActivity;
 
 import com.example.tagedition.R;
 
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,7 @@ public class SetValueTag extends Activity {
 	Button botaoLimpar;
 	Button botaoCancelar;
 	Button botaoSalvar;
+	Button botaoCapa;
 
 	EditText editTextAutor;
 	EditText editTextGenero;
@@ -57,6 +60,7 @@ public class SetValueTag extends Activity {
 		botaoLimpar = (Button) findViewById(R.id.botaoLimpar);
 		botaoCancelar = (Button) findViewById(R.id.botaoCancelar);
 		botaoSalvar = (Button) findViewById(R.id.botaoSalvar);
+		botaoCapa = (Button) findViewById(R.id.botaoCapa);
 
 		editTextAutor = (EditText) findViewById(R.id.editTextAutor);
 		editTextGenero = (EditText) findViewById(R.id.editTextGenero);
@@ -123,7 +127,7 @@ public class SetValueTag extends Activity {
 					genero = editTextGenero.getText().toString();
 					
 					AlertDialog.Builder alert = new AlertDialog.Builder(SetValueTag.this);
-					alert.setTitle("Confirmação");
+					alert.setTitle("ConfirmaÔøΩ‚Äπo");
 					alert.setMessage("Autor:"+autor+"\nAlbum: "+album+"\nGenero: "+genero+ "\nforam alteradas com sucesso!");
 					alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
 						public  void  onClick(DialogInterface dialog, int  whichButton) { 
@@ -141,6 +145,15 @@ public class SetValueTag extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
+			}
+		});
+		
+		botaoCapa.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(SetValueTag.this,FotosActivity.class);
+				startActivity(i);
 			}
 		});
 	}
