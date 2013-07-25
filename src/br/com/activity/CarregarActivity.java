@@ -38,7 +38,9 @@ public class CarregarActivity extends Activity {
 			if (files[i].isDirectory()) {
 				list.add(0, files[i]);
 			}else{
-				list.add(files[i]);
+				if (files[i].getName().contains(".mp3")){
+					list.add(files[i]);
+				}
 			}	
 		}
 	}
@@ -50,19 +52,7 @@ public class CarregarActivity extends Activity {
 		
 		sdcard = Environment.getExternalStorageDirectory();
 		
-		final File[] files = sdcard.listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String filename) {
-				if (dir.isDirectory()){
-					return true;
-				}
-				
-				if (filename.toLowerCase().endsWith(".mp3")){
-					return true;
-				}
-				return false;
-			}
-		});
+		final File[] files = sdcard.listFiles();
 		
 		listView = (ListView) findViewById(R.id.files);
 		updateList(files);
@@ -73,19 +63,7 @@ public class CarregarActivity extends Activity {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 	        	if (list.get(position).isDirectory()){
-	        		File[] filesAux = list.get(position).listFiles(new FilenameFilter() {
-	        			@Override
-	        			public boolean accept(File dir, String filename) {
-	        				if (dir.isDirectory()){
-	        					return true;
-	        				}
-	        				
-	        				if (filename.toLowerCase().endsWith(".mp3")){
-	        					return true;
-	        				}
-	        				return false;
-	        			}
-	        		});
+	        		File[] filesAux = list.get(position).listFiles();
 	        		File auxParent = list.get(position).getParentFile();
 	        		updateList(filesAux);
 	        		list.add(0, auxParent);
