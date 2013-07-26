@@ -15,6 +15,7 @@ import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
 import br.com.player.PlayerActivity;
 
+import com.beaglebuddy.mp3.MP3;
 import com.example.tagedition.R;
 
 import android.os.Bundle;
@@ -86,25 +87,25 @@ public class SetValueTag extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				MP3File mp3 = null;
+				MP3 mp3 = null;
 				File file = null;
 				for (int i = 0; i < listMusic.getListMusic().size(); i++) {
 					file = listMusic.getListMusic().get(i);
 					if(file.toString().contains(".mp3")){
 						try {
 							
-							mp3 = new MP3File(file);
+							mp3 = new MP3(file);
 							
 							if(!(editTextAlbum.getText().toString().trim().equals(""))){
-								mp3.getID3v2Tag().setAlbumTitle(editTextAlbum.getText().toString());
+								mp3.setAlbum(editTextAlbum.getText().toString());
 								alteracao = true;
 							}
 							if(!(editTextAutor.getText().toString().trim().equals(""))){
-								mp3.getID3v2Tag().setAuthorComposer(editTextAutor.getText().toString());
+								mp3.setMusicBy(editTextAutor.getText().toString());
 								alteracao = true;
 							}
 							if(!(editTextGenero.getText().toString().trim().equals(""))){
-								mp3.getID3v2Tag().setSongGenre(editTextGenero.getText().toString());
+								mp3.setMusicType(editTextGenero.getText().toString());
 								alteracao = true;
 							}
 							
@@ -112,9 +113,7 @@ public class SetValueTag extends Activity {
 							System.out.println("Erro ao carregar: "+file.toString());
 						}
 						try {
-							mp3.save(file, TagConstant.MP3_FILE_SAVE_OVERWRITE);
-							file = new File(file.toString().replace(".mp3", ".original.mp3"));
-							file.deleteOnExit();
+							mp3.save();
 						} catch (Exception e) {
 							System.out.println("Erro ao escrever a musica: "+file);
 							alteracao = false;
@@ -127,7 +126,7 @@ public class SetValueTag extends Activity {
 					genero = editTextGenero.getText().toString();
 					
 					AlertDialog.Builder alert = new AlertDialog.Builder(SetValueTag.this);
-					alert.setTitle("Confirma�‹o");
+					alert.setTitle("Confirmação");
 					alert.setMessage("Autor:"+autor+"\nAlbum: "+album+"\nGenero: "+genero+ "\nforam alteradas com sucesso!");
 					alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
 						public  void  onClick(DialogInterface dialog, int  whichButton) { 
