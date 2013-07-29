@@ -53,8 +53,7 @@ public class ImagemAdapter extends BaseAdapter{
 		}else{
 			Bitmap myBitmap = BitmapFactory.decodeFile(files.get(posicao).getAbsolutePath());
 			ImageView myImage = (ImageView) view.findViewById(R.id.imagem);
-			myImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			myImage.setImageBitmap(myBitmap);
+			myImage.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 70, 70, false));
 		}
 		
 		TextView nome = (TextView)view.findViewById(R.id.nomeArquivo);
