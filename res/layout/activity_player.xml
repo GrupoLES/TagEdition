@@ -1,65 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="wrap_content"
-	android:layout_height="fill_parent">
-	
-    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
-		
-        
-        <Button
-        android:id="@+id/botaoPrevious"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Previous" />
-        
-        <Button
-        android:id="@+id/botaoPause"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause" />
-        
-        <Button
-        android:id="@+id/botaoPlay"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play" />
-        
-        
-        
-        <Button
-        android:id="@+id/botaoStop"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop" />
-        
-        <Button
-        android:id="@+id/botaoNext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next" />
-        
-        
-	
-    </LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/screen" android:layout_width="fill_parent" android:layout_height="fill_parent" >
+	<LinearLayout android:orientation="vertical" android:layout_alignParentTop="true" 
+		android:layout_alignParentLeft="true" android:layout_width="fill_parent" android:layout_height="fill_parent" 
+		android:weightSum="7" >
 
-    <TextView
-        android:id="@+id/textNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Musica Tocando: "
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="0dip"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:layout_weight="4.52"
+		    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textNomeMusica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="   "
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+		    <ImageView
+		        android:id="@+id/bg"
+		        android:layout_width="match_parent"
+		        android:layout_height="336dp"
+		        android:layout_weight="0.85" >
+		    </ImageView>
+		</LinearLayout>
 
-</LinearLayout>
+		<LinearLayout android:layout_weight="1" android:id="@+id/buttons" android:orientation="horizontal" android:weightSum="5" 
+			android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:gravity="center" 
+			android:layout_width="fill_parent" android:layout_height="0dip" android:background="#FFFFFF" >
+			<Button android:id="@+id/btnPrevious" android:layout_width="0dip" android:layout_height="fill_parent" 
+				android:layout_weight="1" android:background="@drawable/previous" android:layout_margin="5dp" 
+				android:onClick="click" />
+			<View android:layout_weight="1" android:layout_width="0dip" android:layout_height="0dip" />
+			<Button android:id="@+id/btnPlay" android:layout_width="0dip" android:layout_height="fill_parent" 
+				android:layout_weight="1" android:background="@drawable/play" android:layout_margin="5dp" 
+				android:onClick="click" />
+			<View android:layout_weight="1" android:layout_width="0dip" android:layout_height="0dip" />
+			<Button android:id="@+id/btnNext" android:layout_width="0dip" android:layout_height="fill_parent" 
+				android:layout_weight="1" android:background="@drawable/next" android:layout_margin="5dp" 
+				android:onClick="click" />
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Tocando: " />
+
+		<TextView
+		    android:id="@+id/textNomeMusica"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="      " />
+
+		<ProgressBar
+		    android:id="@+id/progressBar1"
+		    style="?android:attr/progressBarStyleHorizontal"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" />
+
+	</LinearLayout>
+</RelativeLayout>

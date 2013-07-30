@@ -1,19 +1,21 @@
 
 package br.com.player;
 import java.io.File;
-import java.io.Flushable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.view.FocusFinder;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
@@ -30,6 +32,10 @@ public class PlayerActivity extends Activity {
 	private boolean paused = false;
 	private TextView nameField;
 	private List<String> musicas;
+	private ImageView bg;
+	private ProgressBar progressBar;
+	private int progressBarStatus = 0;
+	private Handler progressBarHandler = new Handler();
 	
 	private List<String> convertPath(){
 		List<String> retorno = new ArrayList<String>();
@@ -63,8 +69,9 @@ public class PlayerActivity extends Activity {
 	
 	private void buildListener() {
 		
+//		startProgressBar();
 		PlayerController.Player.setOnCompletionListener(new OnCompletionListener(){
-
+			
 			@Override
 			public void onCompletion(MediaPlayer mp) {
 				
@@ -83,7 +90,6 @@ public class PlayerActivity extends Activity {
 					}
 					PlayerController.Player.start();
 					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-					
 					buildListener();
 				}
 				
@@ -103,25 +109,25 @@ public class PlayerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player);
 		
-		btPlay = (Button) findViewById(R.id.botaoPlay);
-		btPausar = (Button) findViewById(R.id.botaoPause);
-		btStop = (Button) findViewById(R.id.botaoStop);
-		btPrevious = (Button) findViewById(R.id.botaoPrevious);
-		btNext = (Button) findViewById(R.id.botaoNext);
+		btPlay = (Button) findViewById(R.id.btnPlay);
+		//btPausar = (Button) findViewById(R.id.botaoPause);
+		//btStop = (Button) findViewById(R.id.botaoStop);
+		btPrevious = (Button) findViewById(R.id.btnPrevious);
+		btNext = (Button) findViewById(R.id.btnNext);
 		nameField = (TextView) findViewById(R.id.textNomeMusica);
-		
-		
-		
-		//Player = MediaPlayer.create(this, R.raw.music);
+		bg = (ImageView) findViewById(R.id.bg);
 		musicas = convertPath();
+		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		System.out.println("MUSICAA: " + musicas.size() );
-		//musicas.add("/sdcard/09 Blaze of Glory.mp3");
-		//musicas.add("/sdcard/01 Under the bridge.mp3");
+
 		
 		
 		
 		if(PlayerController.Player != null){
 			nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
+			btPlay.setBackgroundResource(R.drawable.pause);
+			buildListener();
+			
 			
 			try {
 				if(! PlayerController.Player.isPlaying()){
@@ -140,76 +146,101 @@ public class PlayerActivity extends Activity {
 		}
 		
 		
-		
-		
 		if(musicas.size() > 0 && !PlayerController.Player.isPlaying()){
 			PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 			
 		}
 			
+		Drawable image = getResources().getDrawable(R.drawable.default1);
+		bg.setImageDrawable(image);
 		
-		buildListener();
+		//////////////
+		
+		
+		
+		
+		
+		
+		
+		///////////////////////
 		 
 		btPlay.setOnClickListener(new View.OnClickListener() {
 		 
 		@Override
 		public void onClick(View arg0) {
-		paused = false;
-		if(musicas.size() > 0){
-			
-			if(stopped){
-				
-				PlayerController.Player = returnPlayer(PlayerController.musicIndex);
-				stopped = false;
-				paused = false;
-				
-			}
-				
-			
-			if(! PlayerController.Player.isPlaying()){
-				try {
-					PlayerController.Player.prepare();
-				} catch (Exception e) {
-				}	
-				
-				PlayerController.Player.start();
-				nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-//				if(paused == false){
-//					buildThread();
-//				}
-				
-				
-				buildListener();	
-				
-				
+		
+		
+			if(PlayerController.Player != null){
+				if(paused == false && PlayerController.Player.isPlaying() ){
+					pause();
+					btPlay.setBackgroundResource(R.drawable.play);
+					return;
+				}else{
+					btPlay.setBackgroundResource(R.drawable.pause);
+					
+					paused = false;
+				}
 			}
 			
 			
 			
-		}
-		
-		 
-		}
-
-
-		});
-		
-		
-		btStop.setOnClickListener(new View.OnClickListener() {
-		
-			@Override
-			public void onClick(View arg0) {
+			
+			if(musicas.size() > 0){
 				
+				if(stopped){
+					
+					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
+					stopped = false;
+					paused = false;
+					
+				}
+					
 				
-				if(!stopped){
-					PlayerController.Player.stop();
-					PlayerController.Player.release();
-					stopped = true;
+				if(! PlayerController.Player.isPlaying()){
+					try {
+						PlayerController.Player.prepare();
+					} catch (Exception e) {
+					}	
+					
+					PlayerController.Player.start();
+					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
+					
+	//				if(paused == false){
+	//					buildThread();
+	//				}
+					
+					
+					buildListener();	
+					
+					
 				}
 				
+				
+				
 			}
 			
+			 
+			}
+
+
 		});
+		
+		
+//		btStop.setOnClickListener(new View.OnClickListener() {
+//		
+//			@Override
+//			public void onClick(View arg0) {
+//				
+//				
+//				if(!stopped){
+//					PlayerController.Player.stop();
+//					PlayerController.Player.release();
+//					stopped = true;
+//				}
+//				
+//			}
+//			
+//		});
 		
 		btPrevious.setOnClickListener(new View.OnClickListener() {
 		
@@ -217,7 +248,7 @@ public class PlayerActivity extends Activity {
 			public void onClick(View arg0) {
 				
 				if(musicas.size() > 0){
-					
+					btPlay.setBackgroundResource(R.drawable.pause);
 					if(stopped == false || paused ==  true){
 						PlayerController.Player.stop();
 						PlayerController.Player.release();
@@ -253,7 +284,7 @@ public class PlayerActivity extends Activity {
 			public void onClick(View arg0) {
 				
 				if(musicas.size() > 0){
-					
+					btPlay.setBackgroundResource(R.drawable.pause);
 					if(stopped == false || paused == true){
 						PlayerController.Player.stop();
 						PlayerController.Player.release();
@@ -285,24 +316,79 @@ public class PlayerActivity extends Activity {
 		});
 		
 		 
-		btPausar.setOnClickListener(new View.OnClickListener() {
-		 
-		@Override
-		public void onClick(View arg0) {
-			
-			
-			if(paused == false && stopped == false){
-				PlayerController.Player.pause();
-				paused = true;
-			}
-			
-		 
-		}
-	});
+//		btPausar.setOnClickListener(new View.OnClickListener() {
+//		 
+//		@Override
+//		public void onClick(View arg0) {
+//			
+//			
+//			if(paused == false && stopped == false){
+//				PlayerController.Player.pause();
+//				paused = true;
+//			}
+//			
+//		 
+//		}
+//	});
 	 
 			
 	
 	}
+	public void pause(){
+		if(paused == false && stopped == false){
+			PlayerController.Player.pause();
+			paused = true;
+		}
+	}
+	
+//	public void startProgressBar(){
+//		int size = PlayerController.Player.getDuration() / 1000;
+//		System.out.println("tamanho musica: " + size);
+//		progressBar.setProgress(0);
+//		progressBar.setMax(size);
+//		progressBar.showContextMenu();
+//		progressBarStatus = 0;
+//		
+//		new Thread(new Runnable() {
+//			  public void run() {
+//				while (progressBarStatus < PlayerController.Player.getDuration() / 1000) {
+//
+//				  // process some tasks
+//				  progressBarStatus++;
+//
+//				  // your computer is too fast, sleep 1 second
+//				  try {
+//					Thread.sleep(1000);
+//				  } catch (InterruptedException e) {
+//					e.printStackTrace();
+//				  }
+//
+//				  // Update the progress bar
+//				  progressBarHandler.post(new Runnable() {
+//					public void run() {
+//					  progressBar.setProgress(progressBarStatus);
+//					}
+//				  });
+//				}
+//
+//				// ok, file is downloaded,
+//				if (progressBarStatus >= 100) {
+//
+//					// sleep 2 seconds, so that you can see the 100%
+//					try {
+//						Thread.sleep(2000);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
+//
+//					// close the progress bar dialog
+//					
+//				}
+//			  }
+//		       }).start();
+//		
+//		
+//	}
 
  
 }
