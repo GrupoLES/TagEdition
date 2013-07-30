@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import br.com.logica.FileAdapter;
 import br.com.logica.ImagemAdapter;
 import br.com.logica.ListMusic;
+import br.com.logica.ManageTag;
 
 import com.example.tagedition.R;
 
@@ -28,6 +29,8 @@ public class FotosActivity extends Activity {
 	private File sdcard;
 	private List<File> list;
 	private ImagemAdapter adapter;
+	
+	ManageTag manageTag = ManageTag.getInstance();
 	
 	private void updateList(File[] files){	
 		if (list == null){
@@ -70,10 +73,9 @@ public class FotosActivity extends Activity {
 	        		list.add(0, auxParent);
 	        		adapter.notifyDataSetChanged();
 	        	}else{
-	        		if (!(ListMusic.getInstance().getListMusic().contains(list.get(position)))){
-	        			//ListMusic.getInstance().addMusica(list.get(position));
-			        	//MainActivity.fileAdapter.notifyDataSetChanged();
-	        		}
+	        			manageTag.setImagenTag(list.get(position));
+	        			finish();
+	        		
 	        	}
 	        }
 	    });

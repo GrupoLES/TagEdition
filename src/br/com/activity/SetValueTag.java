@@ -16,6 +16,7 @@ import br.com.logica.ManageTag;
 import br.com.player.PlayerActivity;
 
 import com.beaglebuddy.mp3.MP3;
+import com.beaglebuddy.mp3.enums.PictureType;
 import com.example.tagedition.R;
 
 import android.os.Bundle;
@@ -45,7 +46,6 @@ public class SetValueTag extends Activity {
 	}
 	
 	ListMusic listMusic = ListMusic.getInstance();
-	
 	Button botaoLimpar;
 	Button botaoCancelar;
 	Button botaoSalvar;
@@ -108,12 +108,17 @@ public class SetValueTag extends Activity {
 								mp3.setMusicType(editTextGenero.getText().toString());
 								alteracao = true;
 							}
+							if(singletonTag.getImagenTag() != null){
+								mp3.setPicture(PictureType.FRONT_COVER, singletonTag.getImagenTag());
+								
+							}
 							
 						} catch (Exception e) {
 							System.out.println("Erro ao carregar: "+file.toString());
 						}
 						try {
 							mp3.save();
+							singletonTag.setImagenTag(null);
 						} catch (Exception e) {
 							System.out.println("Erro ao escrever a musica: "+file);
 							alteracao = false;
