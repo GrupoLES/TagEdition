@@ -1,6 +1,7 @@
 
 package br.com.player;
 import java.io.File;
+import java.io.Flushable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.view.FocusFinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
@@ -81,6 +83,7 @@ public class PlayerActivity extends Activity {
 					}
 					PlayerController.Player.start();
 					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
+					
 					buildListener();
 				}
 				
@@ -145,8 +148,7 @@ public class PlayerActivity extends Activity {
 		}
 			
 		
-		
-		
+		buildListener();
 		 
 		btPlay.setOnClickListener(new View.OnClickListener() {
 		 
