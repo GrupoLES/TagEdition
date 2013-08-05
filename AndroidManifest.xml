@@ -42,7 +42,7 @@
             android:label="@string/title_activity_fotos" >
         </activity>
         <activity
-            android:name="com.example.tagedition.CapaInternetActivity"
+            android:name="br.com.activity.CapaInternetActivity"
             android:label="@string/title_activity_capa_internet" >
         </activity>
     </application>

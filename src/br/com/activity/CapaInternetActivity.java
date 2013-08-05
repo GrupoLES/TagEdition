@@ -1,4 +1,8 @@
-package com.example.tagedition;
+package br.com.activity;
+
+import com.example.tagedition.R;
+import com.example.tagedition.R.layout;
+import com.example.tagedition.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

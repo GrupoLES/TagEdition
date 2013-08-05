@@ -17,7 +17,6 @@ import br.com.player.PlayerActivity;
 
 import com.beaglebuddy.mp3.MP3;
 import com.beaglebuddy.mp3.enums.PictureType;
-import com.example.tagedition.CapaInternetActivity;
 import com.example.tagedition.R;
 
 import android.os.Bundle;
