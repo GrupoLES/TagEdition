@@ -109,8 +109,16 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/capa"
         android:layout_alignBottom="@+id/capa"
-        android:layout_alignLeft="@+id/editTextGenero"
-        android:layout_marginLeft="46dp"
-        android:text="Escolher imagem" />
+        android:layout_alignRight="@+id/botaoSalvar"
+        android:text="Cartao" />
+
+    <Button
+        android:id="@+id/botaoInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/botaoCapa"
+        android:layout_alignBottom="@+id/botaoCapa"
+        android:layout_alignRight="@+id/editTextGenero"
+        android:text="Internet" />
 
 </RelativeLayout>

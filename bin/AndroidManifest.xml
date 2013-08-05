@@ -9,6 +9,7 @@
         android:targetSdkVersion="14" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -39,6 +40,10 @@
         <activity
             android:name="br.com.activity.FotosActivity"
             android:label="@string/title_activity_fotos" >
+        </activity>
+        <activity
+            android:name="com.example.tagedition.CapaInternetActivity"
+            android:label="@string/title_activity_capa_internet" >
         </activity>
     </application>
 

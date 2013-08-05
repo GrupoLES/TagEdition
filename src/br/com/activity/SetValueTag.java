@@ -17,6 +17,7 @@ import br.com.player.PlayerActivity;
 
 import com.beaglebuddy.mp3.MP3;
 import com.beaglebuddy.mp3.enums.PictureType;
+import com.example.tagedition.CapaInternetActivity;
 import com.example.tagedition.R;
 
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class SetValueTag extends Activity {
 	Button botaoCancelar;
 	Button botaoSalvar;
 	Button botaoCapa;
+	Button botaoCapaInternet;
 
 	EditText editTextAutor;
 	EditText editTextGenero;
@@ -62,7 +64,8 @@ public class SetValueTag extends Activity {
 		botaoCancelar = (Button) findViewById(R.id.botaoCancelar);
 		botaoSalvar = (Button) findViewById(R.id.botaoSalvar);
 		botaoCapa = (Button) findViewById(R.id.botaoCapa);
-
+		botaoCapaInternet = (Button) findViewById(R.id.botaoInternet);
+		
 		editTextAutor = (EditText) findViewById(R.id.editTextAutor);
 		editTextGenero = (EditText) findViewById(R.id.editTextGenero);
 		editTextAlbum = (EditText) findViewById(R.id.editTextAlbum);
@@ -157,6 +160,15 @@ public class SetValueTag extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(SetValueTag.this,FotosActivity.class);
+				startActivity(i);
+			}
+		});
+		
+		botaoCapaInternet.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(SetValueTag.this,CapaInternetActivity.class);
 				startActivity(i);
 			}
 		});
