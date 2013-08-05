@@ -49,11 +49,16 @@
 		    android:layout_height="wrap_content"
 		    android:text="      " />
 
-		<ProgressBar
-		    android:id="@+id/progressBar1"
-		    style="?android:attr/progressBarStyleHorizontal"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" />
-
 	</LinearLayout>
+
+	<Button
+	    android:id="@+id/btnSource"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:onClick="click"
+	    android:background="@drawable/source"
+	    android:text="" />
+
 </RelativeLayout>

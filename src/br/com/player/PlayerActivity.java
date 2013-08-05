@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import br.com.activity.CarregarActivity;
+import br.com.activity.MainActivity;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
 
@@ -24,7 +27,7 @@ import com.example.tagedition.R;
  
 public class PlayerActivity extends Activity {
 	
-	private Button btPlay, btPausar, btStop, btPrevious, btNext;
+	private Button btPlay, btPausar, btStop, btPrevious, btNext, btnSource;
 //	private MediaPlayer Player;
 	private boolean Click;
 //	private int musicIndex = 0;
@@ -91,9 +94,13 @@ public class PlayerActivity extends Activity {
 					PlayerController.Player.start();
 					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
 					buildListener();
+				}else{
+					btPlay.setBackgroundResource(R.drawable.play);
 				}
 				
 			}
+				
+			
 			
 		});
 		
@@ -115,9 +122,9 @@ public class PlayerActivity extends Activity {
 		btPrevious = (Button) findViewById(R.id.btnPrevious);
 		btNext = (Button) findViewById(R.id.btnNext);
 		nameField = (TextView) findViewById(R.id.textNomeMusica);
+		btnSource = (Button) findViewById(R.id.btnSource);
 		bg = (ImageView) findViewById(R.id.bg);
 		musicas = convertPath();
-		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		System.out.println("MUSICAA: " + musicas.size() );
 
 		
@@ -125,7 +132,14 @@ public class PlayerActivity extends Activity {
 		
 		if(PlayerController.Player != null){
 			nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-			btPlay.setBackgroundResource(R.drawable.pause);
+			
+			
+			if(PlayerController.Player.isPlaying()){
+				btPlay.setBackgroundResource(R.drawable.pause);
+			}else{
+				btPlay.setBackgroundResource(R.drawable.play);
+			}
+			
 			buildListener();
 			
 			
@@ -154,30 +168,23 @@ public class PlayerActivity extends Activity {
 		Drawable image = getResources().getDrawable(R.drawable.default1);
 		bg.setImageDrawable(image);
 		
-		//////////////
-		
-		
-		
-		
-		
-		
-		
-		///////////////////////
+
 		 
 		btPlay.setOnClickListener(new View.OnClickListener() {
 		 
 		@Override
 		public void onClick(View arg0) {
-		
-		
+			
+			musicas = convertPath();
 			if(PlayerController.Player != null){
 				if(paused == false && PlayerController.Player.isPlaying() ){
+					System.out.println("1");
 					pause();
 					btPlay.setBackgroundResource(R.drawable.play);
 					return;
 				}else{
+					System.out.println("2");
 					btPlay.setBackgroundResource(R.drawable.pause);
-					
 					paused = false;
 				}
 			}
@@ -188,7 +195,7 @@ public class PlayerActivity extends Activity {
 			if(musicas.size() > 0){
 				
 				if(stopped){
-					
+					System.out.println("3");
 					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 					stopped = false;
 					paused = false;
@@ -198,6 +205,7 @@ public class PlayerActivity extends Activity {
 				
 				if(! PlayerController.Player.isPlaying()){
 					try {
+						System.out.println("4");
 						PlayerController.Player.prepare();
 					} catch (Exception e) {
 					}	
@@ -209,7 +217,7 @@ public class PlayerActivity extends Activity {
 	//					buildThread();
 	//				}
 					
-					
+					System.out.println("aquiiii");
 					buildListener();	
 					
 					
@@ -246,7 +254,7 @@ public class PlayerActivity extends Activity {
 		
 			@Override
 			public void onClick(View arg0) {
-				
+				musicas = convertPath();
 				if(musicas.size() > 0){
 					btPlay.setBackgroundResource(R.drawable.pause);
 					if(stopped == false || paused ==  true){
@@ -279,9 +287,10 @@ public class PlayerActivity extends Activity {
 		});
 		
 		btNext.setOnClickListener(new View.OnClickListener() {
-		
+			
 			@Override
 			public void onClick(View arg0) {
+				musicas = convertPath();
 				
 				if(musicas.size() > 0){
 					btPlay.setBackgroundResource(R.drawable.pause);
@@ -311,6 +320,20 @@ public class PlayerActivity extends Activity {
 				
 				
 		
+			}
+			
+		});
+		
+		btnSource.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				pause();
+				stopped = true;
+				Intent i = new Intent(PlayerActivity.this,CarregarActivity.class);
+				startActivity(i);
+				
+				
 			}
 			
 		});
