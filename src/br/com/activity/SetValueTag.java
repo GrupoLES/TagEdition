@@ -120,7 +120,6 @@ public class SetValueTag extends Activity {
 						}
 						try {
 							mp3.save();
-							singletonTag.setImagenTag(null);
 						} catch (Exception e) {
 							System.out.println("Erro ao escrever a musica: "+file);
 							alteracao = false;
@@ -143,6 +142,7 @@ public class SetValueTag extends Activity {
 					alert.show();
 				}
 				}
+				singletonTag.setImagenTag(null);
 			}
 		});		
 		botaoCancelar.setOnClickListener(new View.OnClickListener() {
