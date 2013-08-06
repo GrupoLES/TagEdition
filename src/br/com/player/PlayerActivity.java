@@ -7,6 +7,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -23,6 +25,8 @@ import br.com.activity.MainActivity;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
 
+import com.beaglebuddy.mp3.MP3;
+import com.beaglebuddy.mp3.pojo.AttachedPicture;
 import com.example.tagedition.R;
  
 public class PlayerActivity extends Activity {
@@ -39,6 +43,8 @@ public class PlayerActivity extends Activity {
 	private ProgressBar progressBar;
 	private int progressBarStatus = 0;
 	private Handler progressBarHandler = new Handler();
+	byte[] picture;
+	private MP3 mp3;
 	
 	private List<String> convertPath(){
 		List<String> retorno = new ArrayList<String>();
@@ -73,6 +79,7 @@ public class PlayerActivity extends Activity {
 	private void buildListener() {
 		
 //		startProgressBar();
+		setAlbumImage();
 		PlayerController.Player.setOnCompletionListener(new OnCompletionListener(){
 			
 			@Override
@@ -109,6 +116,30 @@ public class PlayerActivity extends Activity {
 	private String getFileNameFromPath(String path){
 		String[] array = path.split("/");
 		return array[array.length - 1];
+	}
+	
+	private void setAlbumImage(){
+		mp3 = null;
+		try {
+			mp3 = new MP3(musicas.get(PlayerController.musicIndex));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("bites: " + mp3.getPictures().size());
+		
+		if(mp3.getPictures().size() == 0){
+			Drawable image = getResources().getDrawable(R.drawable.default1);
+			bg.setImageDrawable(image);
+		}else{
+			byte[] picture = mp3.getPictures().get(0).getImage();
+			Bitmap bmp = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+			bg.setImageBitmap(bmp);
+		}
+		
+
+		
+		
 	}
 	
 	@Override
@@ -165,8 +196,9 @@ public class PlayerActivity extends Activity {
 			
 		}
 			
-		Drawable image = getResources().getDrawable(R.drawable.default1);
-		bg.setImageDrawable(image);
+		//Drawable image = getResources().getDrawable(R.drawable.default1);
+		
+		
 		
 
 		 
