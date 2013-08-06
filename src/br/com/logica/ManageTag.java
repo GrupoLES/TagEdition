@@ -10,9 +10,6 @@ import com.beaglebuddy.mp3.MP3;
 public class ManageTag {
 		List<MP3> MP3Files;
 		File imagenTag = null;
-		File music = null;
-		int index = 0;
-		
 		private static ManageTag instancia = null;
 
 		
@@ -20,19 +17,6 @@ public class ManageTag {
 			MP3Files = new LinkedList<MP3>();
 			
 		}
-		public void music(File file, int index){
-			music = file;
-			this.index = index;
-		}
-		public File getMusic(){
-			return music;
-		}
-		public int getIndex(){
-			return index;
-		}
-		
-		
-		
 		public void setImagenTag( File fileImagen){
 			imagenTag = fileImagen;
 		}
