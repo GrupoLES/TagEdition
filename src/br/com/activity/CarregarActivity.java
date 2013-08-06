@@ -2,6 +2,7 @@ package br.com.activity;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import br.com.logica.FileAdapter;
 import br.com.logica.ListMusic;
+import br.com.logica.ManageTag;
 
+import com.beaglebuddy.mp3.MP3;
 import com.example.tagedition.R;
 
 public class CarregarActivity extends Activity {
@@ -45,10 +50,33 @@ public class CarregarActivity extends Activity {
 		}
 	}
 	
+	TextView textViewAlbum = null;
+	TextView textViewAutor = null;
+	TextView textViewGenero = null;
+	File file = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carregar);
+		textViewAutor = (TextView) findViewById(R.id.textAutor);
+		textViewAlbum = (TextView) findViewById(R.id.textAlbum);
+		textViewGenero = (TextView) findViewById(R.id.textGenero);
+		Button botaoAdd = (Button) findViewById(R.id.botaoAddMusica);
+		
+		botaoAdd.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(file != null){
+					if (!(ListMusic.getInstance().getListMusic().contains(file))){
+						ListMusic.getInstance().addMusica(file);
+						MainActivity.fileAdapter.notifyDataSetChanged();
+					}
+				}
+				
+			}
+		});
 		
 		sdcard = Environment.getExternalStorageDirectory();
 		
@@ -69,10 +97,17 @@ public class CarregarActivity extends Activity {
 	        		list.add(0, auxParent);
 	        		adapter.notifyDataSetChanged();
 	        	}else{
-	        		if (!(ListMusic.getInstance().getListMusic().contains(list.get(position)))){
-	        			ListMusic.getInstance().addMusica(list.get(position));
-			        	MainActivity.fileAdapter.notifyDataSetChanged();
-	        		}
+	        		try {
+						MP3 m = new MP3(list.get(position));
+						textViewAlbum.setText("Album: "+m.getAlbum());
+						textViewAutor.setText("Autor: "+m.getMusicBy());
+						textViewGenero.setText("Genero: "+m.getMusicType());
+						file = list.get(position);
+						
+					} catch (IOException e) {
+						System.out.println("N‹o foi possivel adicionar musica!");
+					}
+	        		
 	        	}
 	        }
 	    });
