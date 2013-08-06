@@ -167,7 +167,7 @@ public class SetValueTag extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(SetValueTag.this,CapaInternetActivity.class);
+				Intent i = new Intent(SetValueTag.this,CapaInternetActivity.class).putExtra("album", editTextAlbum.getText().toString());
 				startActivity(i);
 			}
 		});
