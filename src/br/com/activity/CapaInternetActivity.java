@@ -1,9 +1,13 @@
 package br.com.activity;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -25,7 +29,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
+import br.com.logica.ManageTag;
 
 import com.example.tagedition.R;
 
@@ -35,22 +41,81 @@ public class CapaInternetActivity extends Activity {
 	private JsonRequest jsonRequest;
 	private List<String> fotos;
 	private int indice;
+	private ImageView image1;
+	private ImageView image2;
+	private ImageView image3;
+	private ImageView image4;
+	private File file1;
+	private File file2;
+	private File file3;
+	private File file4;
+	private ManageTag manageTag = ManageTag.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_capa_internet);
 		search = getIntent().getExtras().getString("album");
+		
+		fotos = new ArrayList<String>();
+		indice = 0;
+		image1 = (ImageView) findViewById(R.id.imageView1);
+		image2 = (ImageView) findViewById(R.id.imageView2);
+		image3 = (ImageView) findViewById(R.id.imageView3);
+		image4 = (ImageView) findViewById(R.id.imageView4);
+		
 		try {
 			search = java.net.URLEncoder.encode(search, "UTF-8");
-			fotos = new ArrayList<String>();
-			indice = 0;
 			if (!(search.equals(""))){
 				jsonRequest = (JsonRequest) new JsonRequest().execute(search);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
+		image1.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (file1 != null){
+					manageTag.setImagenTag(file1);
+					finish();
+				}
+			}
+		});
+		
+		image2.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (file2 != null){
+					manageTag.setImagenTag(file2);
+					finish();
+				}		
+			}
+		});
+
+		image3.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (file3 != null){
+					manageTag.setImagenTag(file3);
+					finish();
+				}	
+			}
+		});
+
+		image4.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (file4 != null){
+					manageTag.setImagenTag(file4);
+					finish();
+				}
+			}
+		});
 	}
 
 	@Override
@@ -58,6 +123,54 @@ public class CapaInternetActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.capa_internet, menu);
 		return true;
+	}
+	
+	private void copiaStream(File f, InputStream stream){
+		if (f != null){
+			 OutputStream out;
+			try {
+				out = new FileOutputStream(f);
+				 byte buf[]=new byte[1024];
+				 int len;
+				 while((len=stream.read(buf))>0){
+					 out.write(buf,0,len);
+				 }
+				 out.close();
+				 stream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void geraFile(InputStream stream, int indiceDownload){
+		File f = null;
+		switch (indiceDownload) {
+		case 0:
+			f=new File(getCacheDir().getAbsolutePath()+"/tempFile1.jpg");
+			copiaStream(f, stream);
+			file1 = f;
+			break;
+		case 1:
+			f=new File(getCacheDir().getAbsolutePath()+"/tempFile2.jpg");
+			copiaStream(f, stream);
+			file2 = f;
+			break;
+		case 2:
+			f=new File(getCacheDir().getAbsolutePath()+"/tempFile3.jpg");
+			copiaStream(f, stream);
+			file3 = f;
+			break;
+		case 3:
+			f=new File(getCacheDir().getAbsolutePath()+"/tempFile4.jpg");
+			copiaStream(f, stream);
+			file4 = f;
+			break;
+		default:
+			break;
+		}
 	}
 	
 	 private class JsonRequest extends AsyncTask<String, Void, String> {
@@ -101,7 +214,10 @@ public class CapaInternetActivity extends Activity {
 	                HttpGet request = new HttpGet();
 	                request.setURI(website);
 	                response = client.execute(request);
-	                resultString = convertStreamToString(response.getEntity().getContent());
+	                System.out.println("requisiçao");
+	                InputStream a = response.getEntity().getContent();
+	               
+	                resultString = convertStreamToString(a);
 	                this.finalize();
 	    		} catch (MalformedURLException e) {
 	    			e.printStackTrace();
@@ -137,50 +253,80 @@ public class CapaInternetActivity extends Activity {
 	        @Override
 	        protected String doInBackground(String... params) {
 	        	try {
-	        		
 	    			HttpClient client = new DefaultHttpClient();
 	                URI website = new URI(fotos.get(indice));
 	                HttpGet request = new HttpGet();
 	                request.setURI(website);
-	                HttpResponse response = client.execute(request);          
-	                myBitmap = BitmapFactory.decodeStream(response.getEntity().getContent());
+	                HttpResponse response = client.execute(request);
+	                InputStream result = response.getEntity().getContent();
+	                geraFile(result, indice);
 	    			this.finalize();
 	    		} catch (MalformedURLException e) {
 	    			e.printStackTrace();
+	    			if (indice < 4){
+	    				indice++;
+	    				new ImageRequest().execute();
+	    			}
 	    		} catch (IOException e) {
 	    			e.printStackTrace();
+	    			if (indice < 4){
+	    				indice++;
+	    				new ImageRequest().execute();
+	    			}
 	    		} catch (URISyntaxException e) {
 	    			e.printStackTrace();
+	    			if (indice < 4){
+	    				indice++;
+	    				new ImageRequest().execute();
+	    			}
 	    		} catch (Throwable e) {
 					e.printStackTrace();
+					if (indice < 4){
+	    				indice++;
+	    				new ImageRequest().execute();
+	    			}
 				}
 				return "";
 	        }        
 
 	        @Override
 	        protected void onPostExecute(String result) {
-	        	if ((indice < fotos.size()) && (indice < 4) && (myBitmap != null)){	
-		        	ImageView myImage;
+	        	if ((indice < fotos.size()) && (indice < 4)){	
+		        	ImageView myImage = null;
 		        	switch (indice) {
 						case 0:
-							myImage = (ImageView) findViewById(R.id.imageView1);
+							if (file1 != null){
+								myBitmap = BitmapFactory.decodeFile(file1.getAbsolutePath());
+								System.out.println("entrou aqui mizera");
+								myImage = image1;
+							}
 							break;
 						case 1:
-							myImage = (ImageView) findViewById(R.id.imageView2);
+							if (file2 != null){
+								myBitmap = BitmapFactory.decodeFile(file2.getAbsolutePath());
+								myImage = image2;
+							}
 							break;
 						case 2:
-							myImage = (ImageView) findViewById(R.id.imageView3);
+							if (file3 != null){
+								myBitmap = BitmapFactory.decodeFile(file3.getAbsolutePath());
+								myImage = image3;
+							}
 							break;
 						case 3:
-							myImage = (ImageView) findViewById(R.id.imageView4);
+							if (file4 != null){
+								myBitmap = BitmapFactory.decodeFile(file4.getAbsolutePath());
+								myImage = image4;
+							}
 							break;
 						default:
-							myImage = (ImageView) findViewById(R.id.imageView1);
 							break;
 					}
-		        	myImage.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 130, 160, false));
-		        	indice++;
-		        	new ImageRequest().execute();
+		        	if((myImage != null) && (myBitmap != null)){
+		        		myImage.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 130, 160, false));
+			        	indice++;
+			        	new ImageRequest().execute();
+		        	}
 	        	}
 	        }
 
