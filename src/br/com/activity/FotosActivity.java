@@ -43,7 +43,7 @@ public class FotosActivity extends Activity {
 			if (files[i].isDirectory()) {
 				list.add(0, files[i]);
 			}else{
-				if (files[i].getName().contains(".jpg")){
+				if ((files[i].getName().contains(".jpg")) || (files[i].getName().contains(".jpeg"))){
 					list.add(files[i]);
 				}
 			}	

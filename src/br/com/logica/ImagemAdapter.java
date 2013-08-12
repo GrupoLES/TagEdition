@@ -45,9 +45,6 @@ public class ImagemAdapter extends BaseAdapter{
 	public View getView(int posicao, View view, ViewGroup arg2) {
 		view = mInflater.inflate(R.layout.item_grid, null);
 		
-		System.out.println(files.get(posicao).getName());
-		System.out.println( files.get(posicao).getName().toLowerCase().endsWith(".jpg"));
-		
 		if (files.get(posicao).isDirectory()){
 			
 		}else{
