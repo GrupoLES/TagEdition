@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import br.com.logica.FileAdapter;
 import br.com.logica.ListMusic;
@@ -41,9 +42,9 @@ public class MainActivity extends Activity {
 	}
 	
 	private void create(){
-		Button botaoEditarTag = (Button) findViewById(R.id.botaoEditar);
-		Button botaoCarregar = (Button) findViewById(R.id.botaoCarregar);
-		Button botaoTocar = (Button) findViewById(R.id.botaoTocar);
+		ImageButton botaoEditarTag = (ImageButton) findViewById(R.id.botaoEditar);
+		ImageButton botaoCarregar = (ImageButton) findViewById(R.id.botaoCarregar);
+		ImageButton botaoTocar = (ImageButton) findViewById(R.id.botaoTocar);
 		
 		botaoEditarTag.setOnClickListener(new View.OnClickListener() {
 			

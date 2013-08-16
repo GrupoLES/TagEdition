@@ -3,23 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:padding="5dp">
-    
-    <TextView
+    android:padding="5dp"
+    android:background="#000000">
+   
+    <ImageView
         android:id="@+id/tipoArquivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:src="@android:drawable/ic_menu_rotate"
+        android:paddingRight="20dp" />
     
     <TextView
         android:id="@+id/nomeArquivo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

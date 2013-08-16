@@ -1,7 +1,6 @@
 package br.com.logica;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.List;
 
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tagedition.R;
@@ -42,11 +42,11 @@ public class FileAdapter extends BaseAdapter{
 	public View getView(int posicao, View view, ViewGroup arg2) {
 		view = mInflater.inflate(R.layout.item_list, null); 
 		
-		TextView tipo = (TextView)view.findViewById(R.id.tipoArquivo);
+		ImageView image = (ImageView)view.findViewById(R.id.tipoArquivo);
 		if (this.files.get(posicao).isDirectory()){
-			tipo.setText("diretorio");
+			image.setImageResource(R.drawable.folder_blue_music);
 		}else{
-			tipo.setText("musica");
+			image.setImageResource(R.drawable.music_icon);
 		}
 		
 		

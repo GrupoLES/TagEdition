@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="wrap_content"
-	android:layout_height="fill_parent">
-	
-	<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		 <Button
-        android:id="@+id/botaoTocar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Tocar  \n" />
+	android:layout_height="fill_parent" android:background="#000000">
+
+	<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:divider="@drawable/divider"
+    	android:showDividers="none">
+		   
+		  <ImageButton
+	        android:id="@+id/botaoTocar"
+	        android:layout_width="105dp"
+	        android:layout_height="80dp"
+	        android:background="#000000"
+	        android:src="@drawable/player"/>
 		 
-		  <Button
-        android:id="@+id/botaoEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Editar  \nTags" />
+		  <ImageButton
+	        android:id="@+id/botaoEditar"
+	        android:layout_width="105dp"
+	        android:layout_height="80dp"
+	        android:background="#000000"
+	        android:src="@drawable/music_edit"
+        />
 		  
-		 <Button
-        android:id="@+id/botaoCarregar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  Carregar  \nMusicas" />
+		 <ImageButton
+	        android:id="@+id/botaoCarregar"
+	        android:layout_width="105dp"
+	        android:layout_height="80dp"
+	        android:background="#000000"
+	        android:src="@drawable/folder_music" />
     </LinearLayout>
     
 	<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent">
