@@ -3,39 +3,73 @@
 	android:orientation="vertical" android:layout_width="wrap_content"
 	android:layout_height="fill_parent" android:background="#000000">
 
-	<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
-	    android:divider="@drawable/divider"
-    	android:showDividers="none">
-		   
-		  <ImageButton
-	        android:id="@+id/botaoTocar"
-	        android:layout_width="105dp"
-	        android:layout_height="80dp"
-	        android:background="#000000"
-	        android:src="@drawable/player"/>
-		 
-		  <ImageButton
-	        android:id="@+id/botaoEditar"
-	        android:layout_width="105dp"
-	        android:layout_height="80dp"
-	        android:background="#000000"
-	        android:src="@drawable/music_edit"
-        />
+	<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
 		  
-		 <ImageButton
-	        android:id="@+id/botaoCarregar"
-	        android:layout_width="105dp"
-	        android:layout_height="80dp"
-	        android:background="#000000"
-	        android:src="@drawable/folder_music" />
+	    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">	
+    		
+			  <ImageButton
+		        android:id="@+id/botaoTocar"
+		        android:layout_width="105dp"
+		        android:layout_height="80dp"
+		        android:background="#000000"
+		        android:src="@drawable/player"/>
+			  
+			   <TextView
+			      android:id="@+id/player"
+			      android:layout_width="wrap_content"
+			      android:layout_height="wrap_content"
+			      android:text="Player"
+			      android:paddingLeft="40px"
+			      android:textColor="#FFFFFF"
+			      android:textAppearance="?android:attr/textAppearanceMedium" />
+			  
+		 </LinearLayout>
+		 
+	    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+	    
+			  <ImageButton
+		        android:id="@+id/botaoEditar"
+		        android:layout_width="105dp"
+		        android:layout_height="80dp"
+		        android:background="#000000"
+		        android:src="@drawable/music_edit"/>
+			  
+			   <TextView
+			      android:id="@+id/editar"
+			      android:layout_width="wrap_content"
+			      android:layout_height="wrap_content"
+			      android:text="Editar Tags"
+			      android:paddingLeft="15px"
+			      android:textColor="#FFFFFF"
+			      android:textAppearance="?android:attr/textAppearanceMedium" />
+		  </LinearLayout>
+		 
+	     <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+			 <ImageButton
+		        android:id="@+id/botaoCarregar"
+		        android:layout_width="105dp"
+		        android:layout_height="80dp"
+		        android:background="#000000"
+		        android:src="@drawable/folder_music" />
+			 <TextView
+			      android:id="@+id/carregar"
+			      android:layout_width="wrap_content"
+			      android:layout_height="wrap_content"
+			      android:text="Músicas"
+			      android:paddingLeft="30px"
+			      android:textColor="#FFFFFF"
+			      android:textAppearance="?android:attr/textAppearanceMedium" />
+		 </LinearLayout>
     </LinearLayout>
     
-	<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent">
+	<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:paddingTop="20px">
 		<ListView
 			android:id="@+id/listView1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1" 
+			android:divider="@drawable/divider"
+			android:dividerHeight="1px">
 		</ListView>
 	 </LinearLayout>
 	
