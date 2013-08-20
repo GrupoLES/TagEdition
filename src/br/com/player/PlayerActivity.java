@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +23,7 @@ import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import br.com.activity.CarregarActivity;
+import br.com.activity.FacebookConnActivity;
 import br.com.activity.MainActivity;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
@@ -31,7 +34,7 @@ import com.example.tagedition.R;
  
 public class PlayerActivity extends Activity {
 	
-	private Button btPlay, btPausar, btStop, btPrevious, btNext, btnSource;
+	private Button btPlay, btPausar, btStop, btPrevious, btNext, btnSource, facebtn;
 //	private MediaPlayer Player;
 	private boolean Click;
 //	private int musicIndex = 0;
@@ -45,6 +48,7 @@ public class PlayerActivity extends Activity {
 	private Handler progressBarHandler = new Handler();
 	byte[] picture;
 	private MP3 mp3;
+	
 	
 	private List<String> convertPath(){
 		List<String> retorno = new ArrayList<String>();
@@ -129,12 +133,12 @@ public class PlayerActivity extends Activity {
 		System.out.println("bites: " + mp3.getPictures().size());
 		
 		if(mp3.getPictures().size() == 0){
-			Drawable image = getResources().getDrawable(R.drawable.default1);
-			bg.setImageDrawable(image);
+			Drawable imageDrawable = getResources().getDrawable(R.drawable.default1);
+			bg.setImageDrawable(imageDrawable);
 		}else{
-			byte[] picture = mp3.getPictures().get(0).getImage();
-			Bitmap bmp = BitmapFactory.decodeByteArray(picture, 0, picture.length);
-			bg.setImageBitmap(bmp);
+			picture = mp3.getPictures().get(0).getImage();
+			Bitmap bmpImage = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+			bg.setImageBitmap(bmpImage);
 		}
 		
 
@@ -152,11 +156,12 @@ public class PlayerActivity extends Activity {
 		//btStop = (Button) findViewById(R.id.botaoStop);
 		btPrevious = (Button) findViewById(R.id.btnPrevious);
 		btNext = (Button) findViewById(R.id.btnNext);
-		nameField = (TextView) findViewById(R.id.textNomeMusica);
+		nameField = (TextView) findViewById(R.id.textNomeMusica); 
 		btnSource = (Button) findViewById(R.id.btnSource);
 		bg = (ImageView) findViewById(R.id.bg);
 		musicas = convertPath();
-		System.out.println("MUSICAA: " + musicas.size() );
+		facebtn = (Button) findViewById(R.id.face);
+		
 
 		
 		
@@ -198,6 +203,43 @@ public class PlayerActivity extends Activity {
 			
 		//Drawable image = getResources().getDrawable(R.drawable.default1);
 		
+		
+		
+		facebtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(PlayerActivity.this);
+				alert.setTitle("Aviso");
+				alert.setMessage("É preciso ter uma sessao do Facebook em Execuçao!");
+				alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() { 
+					public  void  onClick(DialogInterface dialog, int  whichButton) {
+						
+						
+						
+						
+						String musicaTitulo = getFileNameFromPath(musicas.get(PlayerController.musicIndex));
+						Intent i = new Intent(PlayerActivity.this,FacebookConnActivity.class);
+						Bundle params = new Bundle();
+						
+												
+						if(mp3.getPictures().size() != 0){
+							params.putByteArray("imagem", picture);						
+						}
+						
+						
+						params.putString("musica", musicaTitulo);
+						i.putExtras(params);
+						startActivity(i);
+					}
+				});
+				alert.show();
+				
+				
+				
+			}
+			
+		});
 		
 		
 
