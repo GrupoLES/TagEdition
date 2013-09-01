@@ -24,10 +24,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class SetValueTag extends Activity {
 
@@ -46,11 +50,12 @@ public class SetValueTag extends Activity {
 	}
 	
 	ListMusic listMusic = ListMusic.getInstance();
-	Button botaoLimpar;
-	Button botaoCancelar;
-	Button botaoSalvar;
-	Button botaoCapa;
-	Button botaoCapaInternet;
+	ImageView imageView;
+	ImageButton botaoLimpar;
+	ImageButton botaoCancelar;
+	ImageButton botaoSalvar;
+	ImageButton botaoCapa;
+	ImageButton botaoCapaInternet;
 
 	EditText editTextAutor;
 	EditText editTextGenero;
@@ -59,11 +64,12 @@ public class SetValueTag extends Activity {
 	ManageTag singletonTag = ManageTag.getInstance();
 
 	private void create() {
-		botaoLimpar = (Button) findViewById(R.id.botaoLimpar);
-		botaoCancelar = (Button) findViewById(R.id.botaoCancelar);
-		botaoSalvar = (Button) findViewById(R.id.botaoSalvar);
-		botaoCapa = (Button) findViewById(R.id.botaoCapa);
-		botaoCapaInternet = (Button) findViewById(R.id.botaoInternet);
+		imageView = (ImageView) findViewById(R.id.ImageCapaMusica);
+		botaoLimpar = (ImageButton) findViewById(R.id.botaoLimpar);
+		botaoCancelar = (ImageButton) findViewById(R.id.botaoCancelar);
+		botaoSalvar = (ImageButton) findViewById(R.id.botaoSalvar);
+		botaoCapa = (ImageButton) findViewById(R.id.botaoCapa);
+		botaoCapaInternet = (ImageButton) findViewById(R.id.botaoInternet);
 		
 		editTextAutor = (EditText) findViewById(R.id.editTextAutor);
 		editTextGenero = (EditText) findViewById(R.id.editTextGenero);
@@ -111,7 +117,10 @@ public class SetValueTag extends Activity {
 								alteracao = true;
 							}
 							if(singletonTag.getImagenTag() != null){
+								
 								mp3.setPicture(PictureType.FRONT_COVER, singletonTag.getImagenTag());
+								
+								
 								
 							}
 							

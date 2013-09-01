@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.com.logica.FileAdapter;
@@ -62,7 +63,12 @@ public class CarregarActivity extends Activity {
 		textViewAutor = (TextView) findViewById(R.id.textAutor);
 		textViewAlbum = (TextView) findViewById(R.id.textAlbum);
 		textViewGenero = (TextView) findViewById(R.id.textGenero);
-		Button botaoAdd = (Button) findViewById(R.id.botaoAddMusica);
+		
+		textViewAutor.setText("Autor: "+"Campo Vázio");
+		textViewAlbum.setText("Album: "+"Campo Vázio");
+		textViewGenero.setText("Genero: "+"Campo Vázio");
+		
+		ImageButton botaoAdd = (ImageButton) findViewById(R.id.botaoAddMusica);
 		
 		botaoAdd.setOnClickListener(new View.OnClickListener() {
 			
@@ -99,13 +105,19 @@ public class CarregarActivity extends Activity {
 	        	}else{
 	        		try {
 						MP3 m = new MP3(list.get(position));
-						textViewAlbum.setText("Album: "+m.getAlbum());
-						textViewAutor.setText("Autor: "+m.getMusicBy());
-						textViewGenero.setText("Genero: "+m.getMusicType());
+						if(m.getAlbum()!=null){
+							textViewAlbum.setText("Album: "+m.getAlbum());
+						}
+						if(m.getMusicBy() !=null){
+							textViewAutor.setText("Autor: "+m.getMusicBy());
+						}
+						if(m.getMusicType() != null){
+							textViewGenero.setText("Genero: "+m.getMusicType());
+						}
 						file = list.get(position);
 						
 					} catch (IOException e) {
-						System.out.println("N�o foi possivel adicionar musica!");
+						System.out.println("Não foi possivel adicionar musica!");
 					}
 	        		
 	        	}
