@@ -70,9 +70,7 @@ public class AdapterCheckList extends BaseAdapter{
 				if (check.isChecked()){
 					System.out.println("entrou");
 					check.setButtonDrawable(R.drawable.com_facebook_button_check_on);
-					selecionados.add(files.get(posicao));
-				}else{
-					System.out.println("entrou2");				
+				}else{				
 					check.setButtonDrawable(R.drawable.com_facebook_button_check_off);
 					selecionados.remove(files.get(posicao));
 				}
