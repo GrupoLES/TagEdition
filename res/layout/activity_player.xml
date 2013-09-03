@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/screen" android:layout_width="fill_parent" android:layout_height="fill_parent" >
-	<LinearLayout android:orientation="vertical" android:layout_alignParentTop="true" 
+	<LinearLayout android:background="#000000" android:orientation="vertical" android:layout_alignParentTop="true" 
 		android:layout_alignParentLeft="true" android:layout_width="fill_parent" android:layout_height="fill_parent" 
 		android:weightSum="7" >
 
@@ -21,9 +21,9 @@
 		    </ImageView>
 		</LinearLayout>
 
-		<LinearLayout android:layout_weight="1" android:id="@+id/buttons" android:orientation="horizontal" android:weightSum="5" 
+		<LinearLayout  android:layout_weight="1" android:id="@+id/buttons" android:orientation="horizontal" android:weightSum="5" 
 			android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:gravity="center" 
-			android:layout_width="fill_parent" android:layout_height="0dip" android:background="#FFFFFF" >
+			android:layout_width="fill_parent" android:layout_height="0dip" android:background="#000000" >
 			<Button android:id="@+id/btnPrevious" android:layout_width="0dip" android:layout_height="fill_parent" 
 				android:layout_weight="1" android:background="@drawable/previous" android:layout_margin="5dp" 
 				android:onClick="click" />
@@ -53,7 +53,7 @@
 		    android:id="@+id/face"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="Facebook" />
+		    android:background="@drawable/share" />
 
 	</LinearLayout>
 
