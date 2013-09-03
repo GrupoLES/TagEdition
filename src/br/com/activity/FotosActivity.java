@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -69,7 +70,10 @@ public class FotosActivity extends Activity {
 	        		adapter.notifyDataSetChanged();
 	        	}else{
 	        			manageTag.setImagenTag(list.get(position));
+	        			Intent i = new Intent(FotosActivity.this,SetValueTag.class);
+	    				startActivity(i);
 	        			finish();
+	        			
 	        		
 	        	}
 	        }

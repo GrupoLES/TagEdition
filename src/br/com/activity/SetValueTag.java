@@ -12,6 +12,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.text.Editable.Factory;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -49,7 +53,12 @@ public class SetValueTag extends Activity {
 	ManageTag singletonTag = ManageTag.getInstance();
 
 	private void create() {
+		
 		imageView = (ImageView) findViewById(R.id.ImageCapaMusica);
+		if(singletonTag.getImagenTag()!= null){
+			imageView.setImageBitmap(BitmapFactory.decodeFile(singletonTag.getImagenTag().getPath()));
+			
+		}
 		botaoLimpar = (ImageButton) findViewById(R.id.botaoLimpar);
 		botaoCancelar = (ImageButton) findViewById(R.id.botaoCancelar);
 		botaoSalvar = (ImageButton) findViewById(R.id.botaoSalvar);
@@ -144,7 +153,7 @@ public class SetValueTag extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				finish();
 				
 			}
 		});
@@ -155,6 +164,7 @@ public class SetValueTag extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(SetValueTag.this,FotosActivity.class);
 				startActivity(i);
+				finish();
 			}
 		});
 		
@@ -164,6 +174,7 @@ public class SetValueTag extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(SetValueTag.this,CapaInternetActivity.class).putExtra("album", editTextAlbum.getText().toString());
 				startActivity(i);
+				finish();
 			}
 		});
 	}
