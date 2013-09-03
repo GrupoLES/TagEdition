@@ -1,20 +1,8 @@
 package br.com.activity;
 
 import java.io.File;
-import java.io.IOException;
-
-import org.cmc.music.common.ID3WriteException;
-import org.cmc.music.metadata.IMusicMetadata;
-import org.cmc.music.metadata.MusicMetadata;
-import org.cmc.music.metadata.MusicMetadataSet;
-import org.cmc.music.myid3.MyID3;
-import org.farng.mp3.MP3File;
-import org.farng.mp3.TagConstant;
-
 import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
-import br.com.player.PlayerActivity;
-
 import com.beaglebuddy.mp3.MP3;
 import com.beaglebuddy.mp3.enums.PictureType;
 import com.example.tagedition.R;
@@ -24,11 +12,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -144,6 +129,7 @@ public class SetValueTag extends Activity {
 					alert.setTitle("Confirmação");
 					alert.setMessage("Autor:"+autor+"\nAlbum: "+album+"\nGenero: "+genero+ "\nforam alteradas com sucesso!");
 					alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
+						@Override
 						public  void  onClick(DialogInterface dialog, int  whichButton) { 
 							finish();
 						}

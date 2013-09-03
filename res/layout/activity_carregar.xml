@@ -36,6 +36,7 @@
 
 		 <ImageButton
 		     android:layout_alignParentRight="true"
+		     android:background="#000000"
 		     android:layout_marginLeft="200dp"
 		     android:id="@+id/botaoAddMusica"
 		     android:layout_width="wrap_content"

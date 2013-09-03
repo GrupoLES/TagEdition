@@ -19,17 +19,14 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import br.com.activity.CarregarActivity;
 import br.com.activity.FacebookConnActivity;
-import br.com.activity.MainActivity;
 import br.com.logica.ListMusic;
 import br.com.logica.PlayerController;
 
 import com.beaglebuddy.mp3.MP3;
-import com.beaglebuddy.mp3.pojo.AttachedPicture;
 import com.example.tagedition.R;
  
 public class PlayerActivity extends Activity {
@@ -212,8 +209,9 @@ public class PlayerActivity extends Activity {
 			public void onClick(View arg0) {
 				AlertDialog.Builder alert = new AlertDialog.Builder(PlayerActivity.this);
 				alert.setTitle("Aviso");
-				alert.setMessage("É preciso ter uma sessao do Facebook em Execuçao!");
+				alert.setMessage("ï¿½ preciso ter uma sessao do Facebook em Execuï¿½ao!");
 				alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() { 
+					@Override
 					public  void  onClick(DialogInterface dialog, int  whichButton) {
 						
 						

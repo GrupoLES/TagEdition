@@ -1,7 +1,6 @@
 package br.com.activity;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +9,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
-import br.com.logica.FileAdapter;
 import br.com.logica.ImagemAdapter;
-import br.com.logica.ListMusic;
 import br.com.logica.ManageTag;
 
 import com.example.tagedition.R;
@@ -65,7 +59,8 @@ public class FotosActivity extends Activity {
 		grid.setAdapter(adapter);
 		
 		grid.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+	        @Override
+			public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 	        	if (list.get(position).isDirectory()){
 	        		File[] filesAux = list.get(position).listFiles();
 	        		File auxParent = list.get(position).getParentFile();

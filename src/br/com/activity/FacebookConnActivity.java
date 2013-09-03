@@ -127,7 +127,8 @@ public class FacebookConnActivity extends FragmentActivity {
 
         postPhotoButton = (Button) findViewById(R.id.postPhotoButton);
         postPhotoButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+            @Override
+			public void onClick(View view) {
                 onClickPostPhoto();
             }
         });

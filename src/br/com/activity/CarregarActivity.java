@@ -1,9 +1,7 @@
 package br.com.activity;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +12,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import br.com.logica.FileAdapter;
 import br.com.logica.ListMusic;
-import br.com.logica.ManageTag;
-
 import com.beaglebuddy.mp3.MP3;
 import com.example.tagedition.R;
 
@@ -95,7 +89,8 @@ public class CarregarActivity extends Activity {
 		listView.setAdapter(adapter);
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+	        @Override
+			public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 	        	if (list.get(position).isDirectory()){
 	        		File[] filesAux = list.get(position).listFiles();
 	        		File auxParent = list.get(position).getParentFile();
@@ -106,13 +101,16 @@ public class CarregarActivity extends Activity {
 	        		try {
 						MP3 m = new MP3(list.get(position));
 						if(m.getAlbum()!=null){
-							textViewAlbum.setText("Album: "+m.getAlbum());
+							String album = String.valueOf(m.getAlbum()).length()>12?String.valueOf(m.getAlbum()).substring(0,12)+"...":String.valueOf(m.getAlbum());
+							textViewAlbum.setText("Album: "+album);
 						}
 						if(m.getMusicBy() !=null){
-							textViewAutor.setText("Autor: "+m.getMusicBy());
+							String musicBy = String.valueOf(m.getMusicBy()).length()>12?String.valueOf(m.getMusicBy()).substring(0,12)+"...":String.valueOf(m.getMusicBy());
+							textViewAutor.setText("Autor: "+musicBy);
 						}
 						if(m.getMusicType() != null){
-							textViewGenero.setText("Genero: "+m.getMusicType());
+							String genero = String.valueOf(m.getMusicType()).length()>12?String.valueOf(m.getMusicType()).substring(0,12)+"...":String.valueOf(m.getMusicType());
+							textViewGenero.setText("Genero: "+genero);
 						}
 						file = list.get(position);
 						
