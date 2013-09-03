@@ -36,16 +36,16 @@ public class PlayerActivity extends Activity {
 	
 	private Button btPlay, btPausar, btStop, btPrevious, btNext, btnSource, facebtn;
 //	private MediaPlayer Player;
-	private boolean Click;
+	private boolean Click; 
 //	private int musicIndex = 0;
 	private boolean stopped = false;
-	private boolean paused = false;
+	private boolean paused = false; 
 	private TextView nameField;
 	private List<String> musicas;
 	private ImageView bg;
 	private ProgressBar progressBar;
 	private int progressBarStatus = 0;
-	private Handler progressBarHandler = new Handler();
+	private Handler progressBarHandler = new Handler(); 
 	byte[] picture;
 	private MP3 mp3;
 	
@@ -137,7 +137,7 @@ public class PlayerActivity extends Activity {
 			bg.setImageDrawable(imageDrawable);
 		}else{
 			picture = mp3.getPictures().get(0).getImage();
-			Bitmap bmpImage = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+			Bitmap bmpImage = BitmapFactory.decodeByteArray(picture, 0, picture.length); 
 			bg.setImageBitmap(bmpImage);
 		}
 		
@@ -166,12 +166,13 @@ public class PlayerActivity extends Activity {
 		
 		
 		
-		if(PlayerController.Player != null){
+		if(PlayerController.Player != null && musicas.size() > 0){
+			System.out.println("1");
 			nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-			
+			System.out.println("2");
 			
 			if(PlayerController.Player.isPlaying()){
-				btPlay.setBackgroundResource(R.drawable.pause);
+				btPlay.setBackgroundResource(R.drawable.pause); 
 			}else{
 				btPlay.setBackgroundResource(R.drawable.play);
 			}
