@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
 		ImageButton botaoEditarTag = (ImageButton) findViewById(R.id.botaoEditar);
 		ImageButton botaoCarregar = (ImageButton) findViewById(R.id.botaoCarregar);
 		ImageButton botaoTocar = (ImageButton) findViewById(R.id.botaoTocar);
+		ImageButton botaoRemover = (ImageButton) findViewById(R.id.botaoRemover);
 		
 		botaoEditarTag.setOnClickListener(new View.OnClickListener() {
 			
@@ -70,6 +71,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent i = new Intent(MainActivity.this,PlayerActivity.class);
+				startActivity(i);
+				
+			}
+			
+		});
+		
+		botaoRemover.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(MainActivity.this,RemoveActivity.class);
 				startActivity(i);
 				
 			}

@@ -60,6 +60,23 @@
 			      android:textColor="#FFFFFF"
 			      android:textAppearance="?android:attr/textAppearanceMedium" />
 		 </LinearLayout>
+		 
+	     <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+			 <ImageButton
+		        android:id="@+id/botaoRemover"
+		        android:layout_width="105dp"
+		        android:layout_height="80dp"
+		        android:background="#000000"
+		        android:src="@drawable/folder_music" />
+			 <TextView
+			      android:id="@+id/remover"
+			      android:layout_width="wrap_content"
+			      android:layout_height="wrap_content"
+			      android:text="Remover"
+			       android:layout_gravity="center"
+			      android:textColor="#FFFFFF"
+			      android:textAppearance="?android:attr/textAppearanceMedium" />
+		 </LinearLayout>
     </LinearLayout>
     
 	<LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:paddingTop="20px">
