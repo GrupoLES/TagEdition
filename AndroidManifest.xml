@@ -59,6 +59,10 @@
             android:name="br.com.activity.FacebookConnActivity"
             android:label="@string/title_activity_facebook_conn" >
         </activity>
+        <activity
+            android:name="br.com.activity.RemoveActivity"
+            android:label="@string/title_activity_remove" >
+        </activity>
     </application>
 
 </manifest>

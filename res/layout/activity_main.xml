@@ -19,7 +19,7 @@
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="Player"
-			      android:paddingLeft="40px"
+			      android:layout_gravity="center"
 			      android:textColor="#FFFFFF"
 			      android:textAppearance="?android:attr/textAppearanceMedium" />
 			  
@@ -39,7 +39,7 @@
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="Editar Tags"
-			      android:paddingLeft="15px"
+			      android:layout_gravity="center"
 			      android:textColor="#FFFFFF"
 			      android:textAppearance="?android:attr/textAppearanceMedium" />
 		  </LinearLayout>
@@ -56,7 +56,7 @@
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="Músicas"
-			      android:paddingLeft="30px"
+			       android:layout_gravity="center"
 			      android:textColor="#FFFFFF"
 			      android:textAppearance="?android:attr/textAppearanceMedium" />
 		 </LinearLayout>
