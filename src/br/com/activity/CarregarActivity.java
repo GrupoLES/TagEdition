@@ -101,15 +101,15 @@ public class CarregarActivity extends Activity {
 	        		try {
 	        			System.out.println("entrou");
 						MP3 m = new MP3(list.get(position));
-						if(m.getAlbum()!=null){
+						if(m.getAlbum()!=null && m.getAlbum().length()>20){
 							String album = String.valueOf(m.getAlbum()).length()>12 ? String.valueOf(m.getAlbum()).substring(0,20)+"...":String.valueOf(m.getAlbum());
 							textViewAlbum.setText("Album: "+album);
 						}
-						if(m.getMusicBy() !=null){
+						if(m.getMusicBy() !=null && m.getMusicBy().length()> 20){
 							String musicBy = String.valueOf(m.getMusicBy()).length()>12 ? String.valueOf(m.getMusicBy()).substring(0,20)+"...":String.valueOf(m.getMusicBy());
 							textViewAutor.setText("Autor: "+musicBy);
 						}
-						if(m.getMusicType() != null){
+						if(m.getMusicType() != null && m.getMusicType().length()>20){
 							String genero = String.valueOf(m.getMusicType()).length()>12 ? String.valueOf(m.getMusicType()).substring(0,20)+"...":String.valueOf(m.getMusicType());
 							textViewGenero.setText("Genero: "+genero);
 						}
