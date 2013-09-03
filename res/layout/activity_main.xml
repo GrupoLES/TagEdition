@@ -9,8 +9,8 @@
     		
 			  <ImageButton
 		        android:id="@+id/botaoTocar"
-		        android:layout_width="105dp"
-		        android:layout_height="80dp"
+		        android:layout_width="80dp"
+		        android:layout_height="60dp"
 		        android:background="#000000"
 		        android:src="@drawable/player"/>
 			  
@@ -20,8 +20,7 @@
 			      android:layout_height="wrap_content"
 			      android:text="Player"
 			      android:layout_gravity="center"
-			      android:textColor="#FFFFFF"
-			      android:textAppearance="?android:attr/textAppearanceMedium" />
+			      android:textColor="#FFFFFF"/>
 			  
 		 </LinearLayout>
 		 
@@ -29,8 +28,8 @@
 	    
 			  <ImageButton
 		        android:id="@+id/botaoEditar"
-		        android:layout_width="105dp"
-		        android:layout_height="80dp"
+		        android:layout_width="80dp"
+		        android:layout_height="60dp"
 		        android:background="#000000"
 		        android:src="@drawable/music_edit"/>
 			  
@@ -40,15 +39,14 @@
 			      android:layout_height="wrap_content"
 			      android:text="Editar Tags"
 			      android:layout_gravity="center"
-			      android:textColor="#FFFFFF"
-			      android:textAppearance="?android:attr/textAppearanceMedium" />
+			      android:textColor="#FFFFFF"/>
 		  </LinearLayout>
 		 
 	     <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
 			 <ImageButton
 		        android:id="@+id/botaoCarregar"
-		        android:layout_width="105dp"
-		        android:layout_height="80dp"
+		        android:layout_width="80dp"
+		        android:layout_height="60dp"
 		        android:background="#000000"
 		        android:src="@drawable/folder_music" />
 			 <TextView
@@ -56,26 +54,24 @@
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="Músicas"
-			       android:layout_gravity="center"
-			      android:textColor="#FFFFFF"
-			      android:textAppearance="?android:attr/textAppearanceMedium" />
+			      android:layout_gravity="center"
+			      android:textColor="#FFFFFF"/>
 		 </LinearLayout>
 		 
 	     <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
 			 <ImageButton
 		        android:id="@+id/botaoRemover"
-		        android:layout_width="105dp"
-		        android:layout_height="80dp"
+		        android:layout_width="80dp"
+		        android:layout_height="60dp"
 		        android:background="#000000"
-		        android:src="@drawable/folder_music" />
+		        android:src="@drawable/lixo" />
 			 <TextView
 			      android:id="@+id/remover"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
 			      android:text="Remover"
-			       android:layout_gravity="center"
-			      android:textColor="#FFFFFF"
-			      android:textAppearance="?android:attr/textAppearanceMedium" />
+			      android:layout_gravity="center"
+			      android:textColor="#FFFFFF"/>
 		 </LinearLayout>
     </LinearLayout>
     

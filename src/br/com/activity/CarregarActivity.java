@@ -99,6 +99,7 @@ public class CarregarActivity extends Activity {
 	        		adapter.notifyDataSetChanged();
 	        	}else{
 	        		try {
+	        			System.out.println("entrou");
 						MP3 m = new MP3(list.get(position));
 						if(m.getAlbum()!=null){
 							String album = String.valueOf(m.getAlbum()).length()>12 ? String.valueOf(m.getAlbum()).substring(0,20)+"...":String.valueOf(m.getAlbum());

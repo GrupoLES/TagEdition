@@ -68,8 +68,8 @@ public class AdapterCheckList extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				if (check.isChecked()){
-					System.out.println("entrou");
 					check.setButtonDrawable(R.drawable.com_facebook_button_check_on);
+					selecionados.add(files.get(posicao));
 				}else{				
 					check.setButtonDrawable(R.drawable.com_facebook_button_check_off);
 					selecionados.remove(files.get(posicao));
