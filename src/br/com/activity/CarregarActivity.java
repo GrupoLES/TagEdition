@@ -101,15 +101,15 @@ public class CarregarActivity extends Activity {
 	        		try {
 						MP3 m = new MP3(list.get(position));
 						if(m.getAlbum()!=null){
-							String album = String.valueOf(m.getAlbum()).length()>12?String.valueOf(m.getAlbum()).substring(0,12)+"...":String.valueOf(m.getAlbum());
+							String album = String.valueOf(m.getAlbum()).length()>12 ? String.valueOf(m.getAlbum()).substring(0,20)+"...":String.valueOf(m.getAlbum());
 							textViewAlbum.setText("Album: "+album);
 						}
 						if(m.getMusicBy() !=null){
-							String musicBy = String.valueOf(m.getMusicBy()).length()>12?String.valueOf(m.getMusicBy()).substring(0,12)+"...":String.valueOf(m.getMusicBy());
+							String musicBy = String.valueOf(m.getMusicBy()).length()>12 ? String.valueOf(m.getMusicBy()).substring(0,20)+"...":String.valueOf(m.getMusicBy());
 							textViewAutor.setText("Autor: "+musicBy);
 						}
 						if(m.getMusicType() != null){
-							String genero = String.valueOf(m.getMusicType()).length()>12?String.valueOf(m.getMusicType()).substring(0,12)+"...":String.valueOf(m.getMusicType());
+							String genero = String.valueOf(m.getMusicType()).length()>12 ? String.valueOf(m.getMusicType()).substring(0,20)+"...":String.valueOf(m.getMusicType());
 							textViewGenero.setText("Genero: "+genero);
 						}
 						file = list.get(position);
