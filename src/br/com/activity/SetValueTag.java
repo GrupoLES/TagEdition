@@ -64,11 +64,20 @@ public class SetValueTag extends Activity {
 		botaoSalvar = (ImageButton) findViewById(R.id.botaoSalvar);
 		botaoCapa = (ImageButton) findViewById(R.id.botaoCapa);
 		botaoCapaInternet = (ImageButton) findViewById(R.id.botaoInternet);
-		
+
 		editTextAutor = (EditText) findViewById(R.id.editTextAutor);
 		editTextGenero = (EditText) findViewById(R.id.editTextGenero);
 		editTextAlbum = (EditText) findViewById(R.id.editTextAlbum);
-
+		
+		if(singletonTag.getAlbum() != null){
+			editTextAlbum.setText(singletonTag.getAlbum());
+		}
+		if(singletonTag.getAutor() != null){
+			editTextAutor.setText(singletonTag.getAutor());
+		}
+		if(singletonTag.getGenero() != null){
+			editTextGenero.setText(singletonTag.getGenero());
+		}
 		botaoLimpar.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -140,6 +149,9 @@ public class SetValueTag extends Activity {
 					alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
 						@Override
 						public  void  onClick(DialogInterface dialog, int  whichButton) { 
+							singletonTag.setAlbum(null);
+							singletonTag.setAutor(null);
+							singletonTag.setGenero(null);
 							finish();
 						}
 					});
@@ -164,6 +176,16 @@ public class SetValueTag extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(SetValueTag.this,FotosActivity.class);
 				startActivity(i);
+				if(editTextAlbum.getText().toString().trim() != ""){
+					singletonTag.setAlbum(editTextAlbum.getText().toString());
+				}
+				if(editTextAutor.getText().toString().trim() != ""){
+					singletonTag.setAutor(editTextAutor.getText().toString());
+				}
+				if(editTextGenero.getText().toString().trim() != ""){
+					singletonTag.setGenero(editTextGenero.getText().toString());
+				}
+				
 				finish();
 			}
 		});
@@ -174,6 +196,16 @@ public class SetValueTag extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(SetValueTag.this,CapaInternetActivity.class).putExtra("album", editTextAlbum.getText().toString());
 				startActivity(i);
+				if(editTextAlbum.getText().toString().trim() != ""){
+					singletonTag.setAlbum(editTextAlbum.getText().toString());
+				}
+				if(editTextAutor.getText().toString().trim() != ""){
+					singletonTag.setAutor(editTextAutor.getText().toString());
+				}
+				if(editTextGenero.getText().toString().trim() != ""){
+					singletonTag.setGenero(editTextGenero.getText().toString());
+				}
+				
 				finish();
 			}
 		});

@@ -10,6 +10,11 @@ import com.beaglebuddy.mp3.MP3;
 public class ManageTag {
 		List<MP3> MP3Files;
 		File imagenTag = null;
+		
+		private String autor = null;
+		private String album = null;
+		private String genero = null;
+		
 		private static ManageTag instancia = null;
 
 		
@@ -54,5 +59,23 @@ public class ManageTag {
 		public boolean gravarTags(){
 			
 			return true;
+		}
+		public String getAutor() {
+			return autor;
+		}
+		public void setAutor(String autor) {
+			this.autor = autor;
+		}
+		public String getAlbum() {
+			return album;
+		}
+		public void setAlbum(String album) {
+			this.album = album;
+		}
+		public String getGenero() {
+			return genero;
+		}
+		public void setGenero(String genero) {
+			this.genero = genero;
 		}
 }
