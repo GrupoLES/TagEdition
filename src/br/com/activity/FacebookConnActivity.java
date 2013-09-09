@@ -1,6 +1,4 @@
 /**
-hoje não 
-?
  * Copyright 2010-present Facebook.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import br.com.player.PlayerActivity;
 
 import com.example.tagedition.R;
 import com.facebook.FacebookAuthorizationException;
@@ -314,7 +314,19 @@ public class FacebookConnActivity extends FragmentActivity {
             Request request = Request.newUploadPhotoRequest(Session.getActiveSession(), image, new Request.Callback() {
                 @Override
                 public void onCompleted(Response response) { 
-                    showPublishResult("Musica postada com sucesso!", response.getGraphObject(), response.getError());
+                	AlertDialog.Builder alert = new AlertDialog.Builder(FacebookConnActivity.this);
+    				alert.setTitle("Aviso");
+    				alert.setMessage("Música postada na sua Timeline!");
+    				alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//Nao faz nada aqui
+							
+						}
+    					
+    				});
+    				alert.show();
                 }
             });
             

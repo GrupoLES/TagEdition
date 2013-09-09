@@ -209,40 +209,38 @@ public class PlayerActivity extends Activity {
 			public void onClick(View arg0) {
 				AlertDialog.Builder alert = new AlertDialog.Builder(PlayerActivity.this);
 				alert.setTitle("Aviso");
-				alert.setMessage("� preciso ter uma sessao do Facebook em Execu�ao!");
+				alert.setMessage("É preciso ter uma sessão do Facebook em Execução!");
 				alert.setNeutralButton("Ok", new  DialogInterface.OnClickListener() { 
 					@Override
 					public  void  onClick(DialogInterface dialog, int  whichButton) {
 						
-						
-						
-						
-						String musicaTitulo = getFileNameFromPath(musicas.get(PlayerController.musicIndex));
-						Intent i = new Intent(PlayerActivity.this,FacebookConnActivity.class);
-						Bundle params = new Bundle();
-						
-												
-						if(mp3.getPictures().size() != 0){
-							params.putByteArray("imagem", picture);						
+						if(musicas.size() > 0) {
+							
+							String musicaTitulo = getFileNameFromPath(musicas.get(PlayerController.musicIndex));
+							musicaTitulo = musicaTitulo.split("\\.")[0];
+							Intent i = new Intent(PlayerActivity.this,FacebookConnActivity.class);
+							Bundle params = new Bundle();
+													
+							if(mp3.getPictures().size() != 0){
+								params.putByteArray("imagem", picture);					
+							}
+							
+							
+							params.putString("musica", musicaTitulo);
+							i.putExtras(params);
+							startActivity(i);
+							
 						}
 						
-						
-						params.putString("musica", musicaTitulo);
-						i.putExtras(params);
-						startActivity(i);
+
 					}
 				});
 				alert.show();
-				
-				
 				
 			}
 			
 		});
 		
-		
-
-		 
 		btPlay.setOnClickListener(new View.OnClickListener() {
 		 
 		@Override
@@ -251,12 +249,10 @@ public class PlayerActivity extends Activity {
 			musicas = convertPath();
 			if(PlayerController.Player != null){
 				if(paused == false && PlayerController.Player.isPlaying() ){
-					System.out.println("1");
 					pause();
 					btPlay.setBackgroundResource(R.drawable.play);
 					return;
 				}else{
-					System.out.println("2");
 					btPlay.setBackgroundResource(R.drawable.pause);
 					paused = false;
 				}
@@ -268,7 +264,6 @@ public class PlayerActivity extends Activity {
 			if(musicas.size() > 0){
 				
 				if(stopped){
-					System.out.println("3");
 					PlayerController.Player = returnPlayer(PlayerController.musicIndex);
 					stopped = false;
 					paused = false;
@@ -278,19 +273,12 @@ public class PlayerActivity extends Activity {
 				
 				if(! PlayerController.Player.isPlaying()){
 					try {
-						System.out.println("4");
 						PlayerController.Player.prepare();
 					} catch (Exception e) {
 					}	
 					
 					PlayerController.Player.start();
 					nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-					
-	//				if(paused == false){
-	//					buildThread();
-	//				}
-					
-					System.out.println("aquiiii");
 					buildListener();	
 					
 					
@@ -306,22 +294,6 @@ public class PlayerActivity extends Activity {
 
 		});
 		
-		
-//		btStop.setOnClickListener(new View.OnClickListener() {
-//		
-//			@Override
-//			public void onClick(View arg0) {
-//				
-//				
-//				if(!stopped){
-//					PlayerController.Player.stop();
-//					PlayerController.Player.release();
-//					stopped = true;
-//				}
-//				
-//			}
-//			
-//		});
 		
 		btPrevious.setOnClickListener(new View.OnClickListener() {
 		
@@ -401,8 +373,6 @@ public class PlayerActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				pause();
-				stopped = true;
 				Intent i = new Intent(PlayerActivity.this,CarregarActivity.class);
 				startActivity(i);
 				
@@ -410,23 +380,6 @@ public class PlayerActivity extends Activity {
 			}
 			
 		});
-		
-		 
-//		btPausar.setOnClickListener(new View.OnClickListener() {
-//		 
-//		@Override
-//		public void onClick(View arg0) {
-//			
-//			
-//			if(paused == false && stopped == false){
-//				PlayerController.Player.pause();
-//				paused = true;
-//			}
-//			
-//		 
-//		}
-//	});
-	 
 			
 	
 	}
@@ -437,54 +390,6 @@ public class PlayerActivity extends Activity {
 		}
 	}
 	
-//	public void startProgressBar(){
-//		int size = PlayerController.Player.getDuration() / 1000;
-//		System.out.println("tamanho musica: " + size);
-//		progressBar.setProgress(0);
-//		progressBar.setMax(size);
-//		progressBar.showContextMenu();
-//		progressBarStatus = 0;
-//		
-//		new Thread(new Runnable() {
-//			  public void run() {
-//				while (progressBarStatus < PlayerController.Player.getDuration() / 1000) {
-//
-//				  // process some tasks
-//				  progressBarStatus++;
-//
-//				  // your computer is too fast, sleep 1 second
-//				  try {
-//					Thread.sleep(1000);
-//				  } catch (InterruptedException e) {
-//					e.printStackTrace();
-//				  }
-//
-//				  // Update the progress bar
-//				  progressBarHandler.post(new Runnable() {
-//					public void run() {
-//					  progressBar.setProgress(progressBarStatus);
-//					}
-//				  });
-//				}
-//
-//				// ok, file is downloaded,
-//				if (progressBarStatus >= 100) {
-//
-//					// sleep 2 seconds, so that you can see the 100%
-//					try {
-//						Thread.sleep(2000);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
-//
-//					// close the progress bar dialog
-//					
-//				}
-//			  }
-//		       }).start();
-//		
-//		
-//	}
 
  
 }
