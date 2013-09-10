@@ -27,6 +27,10 @@ public class CarregarActivity extends Activity {
 	private List<File> list;
 	private ListView listView;
 	private AdapterCheckList adapter;
+	private File[] diretorioAtual;
+	public static TextView textViewAlbum = null;
+	public static TextView textViewAutor = null;
+	public static TextView textViewGenero = null;
 	
 	private void updateList(File[] files){	
 		if (list == null){
@@ -45,24 +49,38 @@ public class CarregarActivity extends Activity {
 			}	
 		}
 	}
-	
-	TextView textViewAlbum = null;
-	TextView textViewAutor = null;
-	TextView textViewGenero = null;
+
 	File file = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_carregar);
+		
 		textViewAutor = (TextView) findViewById(R.id.textAutor);
 		textViewAlbum = (TextView) findViewById(R.id.textAlbum);
 		textViewGenero = (TextView) findViewById(R.id.textGenero);
 		
-		textViewAutor.setText("Autor: "+"Campo Vázio");
-		textViewAlbum.setText("Album: "+"Campo Vázio");
-		textViewGenero.setText("Genero: "+"Campo Vázio");
-		
+		//if(ListMusic.getInstance().getMusicInformation() == null){
+			textViewAutor.setText("Autor: "+"Campo Vázio");
+			textViewAlbum.setText("Album: "+"Campo Vázio");
+			textViewGenero.setText("Genero: "+"Campo Vázio");
+//		}else{
+//			if(ListMusic.getInstance().getMusicInformation().getAlbum()!=null && ListMusic.getInstance().getMusicInformation().getAlbum().length()>20){
+//				String album = String.valueOf(ListMusic.getInstance().getMusicInformation().getAlbum()).length()>12 ? String.valueOf(ListMusic.getInstance().getMusicInformation().getAlbum()).substring(0,20)+"...":String.valueOf(ListMusic.getInstance().getMusicInformation().getAlbum());
+//				textViewAlbum.setText("Album: "+album);
+//			}
+//			if(ListMusic.getInstance().getMusicInformation().getMusicBy() !=null && ListMusic.getInstance().getMusicInformation().getMusicBy().length()> 20){
+//				String musicBy = String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicBy()).length()>12 ? String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicBy()).substring(0,20)+"...":String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicBy());
+//				textViewAutor.setText("Autor: "+musicBy);
+//			}
+//			if(ListMusic.getInstance().getMusicInformation().getMusicType() != null && ListMusic.getInstance().getMusicInformation().getMusicType().length()>20){
+//				String genero = String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicType()).length()>12 ? String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicType()).substring(0,20)+"...":String.valueOf(ListMusic.getInstance().getMusicInformation().getMusicType());
+//				textViewGenero.setText("Genero: "+genero);
+//			}
+//			
+//		}
+//		
 		Button botaoAdd = (Button) findViewById(R.id.addSelecionadas);
 		Button botaoAddTodas = (Button) findViewById(R.id.addTodas);
 		
@@ -84,12 +102,19 @@ public class CarregarActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if(file != null){
-					if (!(ListMusic.getInstance().getListMusic().contains(file))){
-						ListMusic.getInstance().addMusica(file);
-						MainActivity.fileAdapter.notifyDataSetChanged();
+				for (int i = 0; i < diretorioAtual.length; i++) {
+					if(!diretorioAtual[i].isDirectory()){
+						if(diretorioAtual[i].getName().contains(".mp3")){
+							if(!ListMusic.getInstance().getListMusic().contains(diretorioAtual[i])){
+								ListMusic.getInstance().addMusica(diretorioAtual[i]);
+							}
+						}
+						
 					}
 				}
+
+				MainActivity.fileAdapter.notifyDataSetChanged();
+				finish();
 				
 			}
 		});
@@ -97,7 +122,7 @@ public class CarregarActivity extends Activity {
 		sdcard = Environment.getExternalStorageDirectory();
 		
 		final File[] files = sdcard.listFiles();
-		
+		diretorioAtual = sdcard.listFiles();
 		listView = (ListView) findViewById(R.id.files);
 		updateList(files);
 		adapter = new AdapterCheckList(getApplicationContext(), list);
@@ -110,6 +135,7 @@ public class CarregarActivity extends Activity {
 	        	if (list.get(position).isDirectory()){
 	        		File[] filesAux = list.get(position).listFiles();
 	        		File auxParent = list.get(position).getParentFile();
+	        		diretorioAtual = filesAux;
 	        		updateList(filesAux);
 	        		list.add(0, auxParent);
 	        		adapter.notifyDataSetChanged();
