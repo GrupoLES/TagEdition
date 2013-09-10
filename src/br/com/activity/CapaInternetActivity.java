@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -79,6 +80,8 @@ public class CapaInternetActivity extends Activity {
 			public void onClick(View v) {
 				if (file1 != null){
 					manageTag.setImagenTag(file1);
+					Intent i = new Intent(CapaInternetActivity.this,SetValueTag.class);
+    				startActivity(i);
 					finish();
 				}
 			}
@@ -90,6 +93,8 @@ public class CapaInternetActivity extends Activity {
 			public void onClick(View v) {
 				if (file2 != null){
 					manageTag.setImagenTag(file2);
+					Intent i = new Intent(CapaInternetActivity.this,SetValueTag.class);
+    				startActivity(i);
 					finish();
 				}		
 			}
@@ -101,6 +106,8 @@ public class CapaInternetActivity extends Activity {
 			public void onClick(View v) {
 				if (file3 != null){
 					manageTag.setImagenTag(file3);
+					Intent i = new Intent(CapaInternetActivity.this,SetValueTag.class);
+    				startActivity(i);
 					finish();
 				}	
 			}
@@ -112,6 +119,8 @@ public class CapaInternetActivity extends Activity {
 			public void onClick(View v) {
 				if (file4 != null){
 					manageTag.setImagenTag(file4);
+					Intent i = new Intent(CapaInternetActivity.this,SetValueTag.class);
+    				startActivity(i);
 					finish();
 				}
 			}
@@ -297,7 +306,6 @@ public class CapaInternetActivity extends Activity {
 						case 0:
 							if (file1 != null){
 								myBitmap = BitmapFactory.decodeFile(file1.getAbsolutePath());
-								System.out.println("entrou aqui mizera");
 								myImage = image1;
 							}
 							break;
@@ -326,6 +334,11 @@ public class CapaInternetActivity extends Activity {
 		        		myImage.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 130, 160, false));
 			        	indice++;
 			        	new ImageRequest().execute();
+		        	}else{
+		        		if (indice < 4){
+				        	indice++;
+				        	new ImageRequest().execute();
+		        		}
 		        	}
 	        	}
 	        }

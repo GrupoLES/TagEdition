@@ -206,7 +206,7 @@ public class SetValueTag extends Activity {
 					singletonTag.setGenero(editTextGenero.getText().toString());
 				}
 				
-				finish();
+				
 			}
 		});
 	}
