@@ -45,13 +45,15 @@ public class ImagemAdapter extends BaseAdapter{
 		view = mInflater.inflate(R.layout.item_grid, null);
 		
 		if (files.get(posicao).isDirectory()){
-			TextView nome = (TextView)view.findViewById(R.id.nomeArquivo);
-			nome.setText(files.get(posicao).getName());
+			
 		}else{
 			Bitmap myBitmap = BitmapFactory.decodeFile(files.get(posicao).getAbsolutePath());
 			ImageView myImage = (ImageView) view.findViewById(R.id.imagem);
 			myImage.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 70, 70, false));
 		}
+		
+		TextView nome = (TextView)view.findViewById(R.id.nomeArquivo);
+		nome.setText(files.get(posicao).getName());
 		
 		return view;
 	}
