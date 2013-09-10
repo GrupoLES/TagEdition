@@ -12,10 +12,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import br.com.logica.FileAdapter;
+import br.com.logica.AdapterCheckList;
 import br.com.logica.ListMusic;
 import com.beaglebuddy.mp3.MP3;
 import com.example.tagedition.R;
@@ -25,7 +26,7 @@ public class CarregarActivity extends Activity {
 	private File sdcard;
 	private List<File> list;
 	private ListView listView;
-	private FileAdapter adapter;
+	private AdapterCheckList adapter;
 	
 	private void updateList(File[] files){	
 		if (list == null){
@@ -62,9 +63,24 @@ public class CarregarActivity extends Activity {
 		textViewAlbum.setText("Album: "+"Campo Vázio");
 		textViewGenero.setText("Genero: "+"Campo Vázio");
 		
-		ImageButton botaoAdd = (ImageButton) findViewById(R.id.botaoAddMusica);
+		Button botaoAdd = (Button) findViewById(R.id.addSelecionadas);
+		Button botaoAddTodas = (Button) findViewById(R.id.addTodas);
 		
 		botaoAdd.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				for (File file : adapter.getSelecionados()) {
+					if (!(ListMusic.getInstance().getListMusic().contains(file))){
+						ListMusic.getInstance().addMusica(file);
+					}
+				}
+				MainActivity.fileAdapter.notifyDataSetChanged();
+				finish();
+			}
+		});
+		
+		botaoAddTodas.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -84,7 +100,7 @@ public class CarregarActivity extends Activity {
 		
 		listView = (ListView) findViewById(R.id.files);
 		updateList(files);
-		adapter = new FileAdapter(getApplicationContext(), list);
+		adapter = new AdapterCheckList(getApplicationContext(), list);
 		//ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 		listView.setAdapter(adapter);
 		
@@ -98,6 +114,7 @@ public class CarregarActivity extends Activity {
 	        		list.add(0, auxParent);
 	        		adapter.notifyDataSetChanged();
 	        	}else{
+	        		System.out.println("entrou");
 	        		try {
 	        			System.out.println("entrou");
 						MP3 m = new MP3(list.get(position));

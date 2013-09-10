@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.activity.CarregarActivity;
 import br.com.activity.MainActivity;
 import br.com.activity.SetValueTag;
 
@@ -48,34 +49,38 @@ public class AdapterCheckList extends BaseAdapter{
 
 	@Override
 	public View getView(final int posicao, View view, ViewGroup arg2) {
-		view = mInflater.inflate(R.layout.item_check_list, null); 
 		
-		ImageView image = (ImageView)view.findViewById(R.id.tipoArquivo);
 		if (this.files.get(posicao).isDirectory()){
+			view = mInflater.inflate(R.layout.item_list, null); 
+			
+			ImageView image = (ImageView)view.findViewById(R.id.tipoArquivo);
 			image.setImageResource(R.drawable.folder_blue_music);
 		}else{
+			view = mInflater.inflate(R.layout.item_check_list, null); 
+			
+			ImageView image = (ImageView)view.findViewById(R.id.tipoArquivo);
 			image.setImageResource(R.drawable.music_icon);
+			
+			final CheckBox check = (CheckBox)view.findViewById(R.id.checkBox);
+			
+			check.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if (check.isChecked()){
+						check.setButtonDrawable(R.drawable.com_facebook_button_check_on);
+						selecionados.add(files.get(posicao));
+					}else{				
+						check.setButtonDrawable(R.drawable.com_facebook_button_check_off);
+						selecionados.remove(files.get(posicao));
+					}
+				}
+			});
 		}
 		
 		
 		TextView nome = (TextView)view.findViewById(R.id.nomeArquivo);
 		nome.setText(files.get(posicao).getName());
-		
-		final CheckBox check = (CheckBox)view.findViewById(R.id.checkBox);
-		
-		check.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (check.isChecked()){
-					check.setButtonDrawable(R.drawable.com_facebook_button_check_on);
-					selecionados.add(files.get(posicao));
-				}else{				
-					check.setButtonDrawable(R.drawable.com_facebook_button_check_off);
-					selecionados.remove(files.get(posicao));
-				}
-			}
-		});
 		
 		return view;
 	}
