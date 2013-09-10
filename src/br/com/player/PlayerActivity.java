@@ -157,16 +157,13 @@ public class PlayerActivity extends Activity {
 		btnSource = (Button) findViewById(R.id.btnSource);
 		bg = (ImageView) findViewById(R.id.bg);
 		musicas = convertPath();
+		PlayerController.listaMusicas = musicas;
 		facebtn = (Button) findViewById(R.id.face);
-		
-
-		
 		
 		
 		if(PlayerController.Player != null && musicas.size() > 0){
-			System.out.println("1");
+			
 			nameField.setText(getFileNameFromPath(musicas.get(PlayerController.musicIndex)));
-			System.out.println("2");
 			
 			if(PlayerController.Player.isPlaying()){
 				btPlay.setBackgroundResource(R.drawable.pause); 
@@ -222,7 +219,7 @@ public class PlayerActivity extends Activity {
 							Bundle params = new Bundle();
 													
 							if(mp3.getPictures().size() != 0){
-								params.putByteArray("imagem", picture);					
+								params.putByteArray("imagem", picture);				
 							}
 							
 							
@@ -373,6 +370,7 @@ public class PlayerActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
+				finish();
 				Intent i = new Intent(PlayerActivity.this,CarregarActivity.class);
 				startActivity(i);
 				

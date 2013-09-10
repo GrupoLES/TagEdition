@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import br.com.logica.AdapterCheckList;
 import br.com.logica.FileAdapter;
 import br.com.logica.ListMusic;
+import br.com.logica.PlayerController;
 
 import com.beaglebuddy.mp3.MP3;
 import com.example.tagedition.R;
@@ -44,6 +45,7 @@ public class RemoveActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				List<File> aux = adapter.getSelecionados();
+				stopPlayer(aux);
 				
 				for (File file : aux) {
 					ListMusic.getInstance().getListMusic().remove(file);
@@ -58,6 +60,7 @@ public class RemoveActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				List<File> list = ListMusic.getInstance().getListMusic();
+				stopPlayer(list);
 				list.removeAll(list);
 				MainActivity.fileAdapter.notifyDataSetChanged();
 				finish();
@@ -71,4 +74,25 @@ public class RemoveActivity extends Activity {
 		getMenuInflater().inflate(R.menu.remove, menu);
 		return true;
 	}
+	
+	public void stopPlayer(List<File> lista){
+		
+		for(int i = 0; i < lista.size(); i++){
+			
+			if(PlayerController.listaMusicas.get(PlayerController.musicIndex).contains(lista.get(i).getName())){
+				PlayerController.Player.stop();
+				PlayerController.musicIndex = PlayerController.listaMusicas.size() - lista.size();
+				if(PlayerController.musicIndex > 0){
+					PlayerController.musicIndex--;
+				}
+				return;
+			}
+			
+		}
+		PlayerController.musicIndex = PlayerController.listaMusicas.size() - lista.size();
+		if(PlayerController.musicIndex > 0){
+			PlayerController.musicIndex--;
+		}
+	}
+	
 }
